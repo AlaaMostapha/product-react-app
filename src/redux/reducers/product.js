@@ -1,20 +1,21 @@
 //reducer(action,state) //return update state
 
 import * as actionType from '../constants/actionTypes';
-export default function productReducer(state={},action){
+export default function singleProductReducer(state={},action){
     switch(action.type){
-        case actionType.PRODUCT_REQUEST :{
+        case actionType.PREQUEST_SINGLLE_PRODUCT :{
             console.log(action,state)
             return{
                ...state,
-               loader: true
+               singleProductloader: true,
+               id:action.payload.singleProductId
             }
         }
-        case actionType.PRODUCT_RESPONSE :{
+        case actionType.GET_SINGLLE_PRODUCT :{
             console.log(action,state)
             return{
-                products:action.payload.products,
-                loader: false
+                singleProduct:action.payload.singleProduct,
+                singleProductloader: false
             }
         }
         default : return state;

@@ -15,15 +15,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard({title,discription,img}) {
+export default function MediaCard({title,discription,img,alt,onClick}) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={onClick}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={img}
+          image={img} alt={alt}
           title="Contemplative Reptile"
         />
         <CardContent>
