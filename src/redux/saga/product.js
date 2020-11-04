@@ -1,9 +1,10 @@
-import { call ,put} from 'redux-saga/effects';
+import { call,take ,put} from 'redux-saga/effects';
 import {getProductsFromApi} from '../../axios/api/product';
-import  {showProducts} from '../actions/index';
+import  {showProducts} from '../actions/actions';
 
-function* handlGetProducts(action) {
-    const response=yield call(getProductsFromApi());
+function* handlGetProducts() {
+    const response=yield call(getProductsFromApi);
+    console.log(response)
     yield put(showProducts(response))
 }
  

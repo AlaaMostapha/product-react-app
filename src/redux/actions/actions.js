@@ -1,4 +1,4 @@
-import * as actionType from '../actionTypes';
+import * as actionType from '../constants/actionTypes';
 
 export const getProducts =()=>({
     type: actionType.PRODUCT_REQUEST,
