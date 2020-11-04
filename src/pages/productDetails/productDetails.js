@@ -7,15 +7,15 @@ import {connect} from 'react-redux';
 class ProductDetails extends Component {
     state = {  }
     render() { 
-      const{title,image,alt,description}=this.props.singleProduct;
+      // const{title,image,alt,description}=this.props.singleProduct;
         return (  
              <div >
                 {(this.props.singleProduct)?
                 <div style={{display:"flex",textAlign:"left"}}>
-                  <img src={image} alt={alt} style={{height:"250px",margin:"10px"}}/>
+                  <img src={this.props.singleProduct.image} alt={this.props.singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
                   <div>
-                    <h3>{title}</h3>
-                    <p>{description}</p>
+                    <h3>{this.props.singleProduct.title}</h3>
+                    <p>{this.props.singleProduct.description}</p>
                     <CreateButton color="primary" text="Add to cart" href="#"/>
                   </div>
                 </div>:""}
