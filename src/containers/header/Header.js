@@ -9,6 +9,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Cart from '../Cart/Cart';
+import Badge from '@material-ui/core/Badge';
+import { withStyles } from '@material-ui/core/styles';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,6 +33,8 @@ export default function Header() {
 
 
   const handleMenu = (event) => {
+    console.log(event)
+    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   };
 
@@ -77,8 +83,32 @@ export default function Header() {
               </Menu>
             </div>
             
-            <IconButton style={{ color: 'white' }} aria-label="add to shopping cart" >
-              <AddShoppingCartIcon />
+            <IconButton aria-label="add to shopping cart" >
+                  <Badge  badgeContent={1} color="secondary">
+                    <AddShoppingCartIcon style={{ color: 'white' }}/>
+                  </Badge>
+                <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem>
+                  <Cart 
+                   title="live  space"
+                   img="https://www.gsb.stanford.edu/sites/default/files/styles/1630x_variable/public/resources/chiukey.jpg?itok=Z_-XVRps"
+                   />
+                </MenuItem>
+              </Menu>
             </IconButton>
         </Toolbar>
       </AppBar>
