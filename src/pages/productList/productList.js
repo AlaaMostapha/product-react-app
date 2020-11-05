@@ -7,22 +7,20 @@ import Paper from '@material-ui/core/Paper';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
-import ProductDetails from '../productDetails/productDetails'
+import ProductDetails from '../productDetails/productDetails';
+import { Redirect } from "react-router-dom";
 class ProductList extends Component {
  check=(id)=>{
-    console.log(id)
-    this.props.getSingleProduct(id)
-    console.log(this.props.singleProduct)
-    // return <Redirect to='/target' />
+    return   this.props.history.push(`products/${id}`);  
   }
-    componentDidMount(){  
-        this.props.getProducts(); 
-        console.log(this.props.products);
-    }
+  componentDidMount(){  
+    this.props.getProducts(); 
+    console.log(this.props.products);
+  }
     
    createList(){   
       const {products}=this.props
-      console.log(products)
+      // console.log(products)
       if(products) { 
         return (products || []).map((product)=>{
          return(
@@ -52,11 +50,6 @@ class ProductList extends Component {
                    </Grid>
                    }
 
-                   clicked
-                   {/* {(singleProduct)? <LoadingIndicator/>:<ProductDetails/>} */}
-                   {/* {(singleProduct)?((singleProductloader)? <LoadingIndicator/>:<ProductDetails/>):
-                    ((loading) ?  <LoadingIndicator/>: <Grid container spacing={2} > {this.createList()}</Grid>)
-                   } */}
             </Container>
         );
     }
@@ -69,8 +62,8 @@ function mapDispatchToProps(dispatch){
   }
 } 
 function mapStateToProps(state){
-  console.log(state)
-   console.log(state.productReducer)
+  // console.log(state)
+  //  console.log(state.productsReducer)
   return{
     products:state.productsReducer.products,
     loading:state.productsReducer.loader,
