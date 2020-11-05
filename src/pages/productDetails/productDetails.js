@@ -6,8 +6,6 @@ import * as actions from '../../redux/actions/actions';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 class ProductDetails extends Component {
    componentDidMount(){  
-      // this.props.getProducts(); 
-      console.log()
       const {productId}=this.props.match.params
       console.log(productId);
       this.props.getSingleProduct(productId)
