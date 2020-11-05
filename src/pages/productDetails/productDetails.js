@@ -3,6 +3,7 @@ import './productDetails.scss';
 import  CreateButton from '../../components/Btn/Btn';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 class ProductDetails extends Component {
    componentDidMount(){  
       // this.props.getProducts(); 
@@ -17,7 +18,7 @@ class ProductDetails extends Component {
       // const{title,image,alt,description}=this.props.singleProduct;
         return (  
              <div >
-               {this.props.location.state}
+              
                 {(this.props.singleProduct)?
                 <div style={{display:"flex",textAlign:"left"}}>
                   <img src={this.props.singleProduct.image} alt={this.props.singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
@@ -26,7 +27,7 @@ class ProductDetails extends Component {
                     <p>{this.props.singleProduct.description}</p>
                     <CreateButton color="primary" text="Add to cart" href="#"/>
                   </div>
-                </div>:""}
+                </div>:<LoadingIndicator/>}
             </div>
         );
     }
