@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import './productDetails.scss';
-import  MediaCard from '../../components/Card/Card';
 import  CreateButton from '../../components/Btn/Btn';
-import Container from '@material-ui/core/Container';
 import {connect} from 'react-redux';
+import * as actions from '../../redux/actions/actions';
 class ProductDetails extends Component {
+   componentDidMount(){  
+      // this.props.getProducts(); 
+      console.log()
+      const {productId}=this.props.match.params.productId
+      console.log(productId);
+      this.props.getSingleProduct(productId)
+    }
+    
     state = {  }
     render() { 
       // const{title,image,alt,description}=this.props.singleProduct;
         return (  
              <div >
+               {this.props.location.state}
                 {(this.props.singleProduct)?
                 <div style={{display:"flex",textAlign:"left"}}>
                   <img src={this.props.singleProduct.image} alt={this.props.singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
@@ -32,4 +40,10 @@ function mapStateToProps(state){
     singleProduct:state.singleProductReducer.singleProduct,
   }
 }
-export default connect(mapStateToProps,null)(ProductDetails); 
+function mapDispatchToProps(dispatch){
+  return{
+   getProducts : ()=>dispatch(actions.getProducts()),
+   getSingleProduct :(id)=>dispatch(actions.getSingleProduct(id)),
+  }
+} 
+export default connect(mapStateToProps,mapDispatchToProps)(ProductDetails); 
