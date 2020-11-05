@@ -7,7 +7,7 @@ class ProductDetails extends Component {
    componentDidMount(){  
       // this.props.getProducts(); 
       console.log()
-      const {productId}=this.props.match.params.productId
+      const {productId}=this.props.match.params
       console.log(productId);
       this.props.getSingleProduct(productId)
     }
