@@ -7,8 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
-import ProductDetails from '../productDetails/productDetails';
-import { Redirect } from "react-router-dom";
 class ProductList extends Component {
  check=(id)=>{
     return   this.props.history.push(`products/${id}`);  
@@ -41,7 +39,7 @@ class ProductList extends Component {
 
     state = {  }
     render() { 
-        const{loading,singleProduct,singleProductloader}=this.props
+        const{loading}=this.props
         return (  
            <Container maxWidth="lg" className="ProductListContainer">
                  {(loading) ?  <LoadingIndicator/>:
