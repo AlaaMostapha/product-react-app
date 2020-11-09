@@ -1,4 +1,5 @@
 import React from 'react';
+import './Header.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,8 +12,10 @@ import Menu from '@material-ui/core/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Cart from '../Cart/Cart';
 import Badge from '@material-ui/core/Badge';
-import { withStyles } from '@material-ui/core/styles';
-
+import  CreateButton from '../../components/Btn/Btn';
+import { useHistory } from "react-router-dom";
+import {connect} from 'react-redux';
+import * as actions from '../../redux/actions/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+function Header(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -41,7 +45,12 @@ export default function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const removeItemFromCart=(productId)=>{
+       props.deleteItemInCart(productId)
+    }
+  const reviewPage=()=>{
+      history.push('/ReviewOrder'); 
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -54,7 +63,7 @@ export default function Header() {
           </Typography>
           
             <div>
-              <IconButton
+              {/* <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
@@ -80,11 +89,11 @@ export default function Header() {
               >
                 <MenuItem onClick={handleClose}>View/ Edit Profile </MenuItem>
                 <MenuItem onClick={handleClose}>Sign Out</MenuItem>
-              </Menu>
+              </Menu> */}
             </div>
             
-            <IconButton aria-label="add to shopping cart" >
-                  <Badge  badgeContent={1} color="secondary">
+            <IconButton aria-label="add to shopping cart"  onClick={handleMenu}>
+                  <Badge  badgeContent={props.itemsNum} color="secondary">
                     <AddShoppingCartIcon style={{ color: 'white' }}/>
                   </Badge>
                 <Menu
@@ -102,11 +111,22 @@ export default function Header() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem>
-                  <Cart 
-                   title="live  space"
-                   img="https://www.gsb.stanford.edu/sites/default/files/styles/1630x_variable/public/resources/chiukey.jpg?itok=Z_-XVRps"
-                   />
+                 <MenuItem onClick={handleClose}>close</MenuItem>
+                {(props.cart || [] ).slice(0, 3).map(item=>{
+                  return(
+                    <MenuItem key={item.id}>
+                      <Cart 
+                      title={item.title}
+                      img={item.image}
+                      onDelete={()=>removeItemFromCart(item.id)}
+                      quantity={item.quantity}
+                      // onChangeQuantity
+                      /> {console.log(item.quantity)}
+                  </MenuItem>
+                  )
+                })}
+                <MenuItem style={{justifyContent:"center"}}>
+                  <CreateButton color="primary" text="Review Order" onClick={reviewPage}/>
                 </MenuItem>
               </Menu>
             </IconButton>
@@ -115,3 +135,18 @@ export default function Header() {
     </div>
   );
 }
+function mapDispatchToProps(dispatch){
+  return{
+   deleteItemInCart: (id)=>dispatch(actions.deleteItemInCart(id))
+  }
+} 
+function mapStateToProps(state){
+  console.log(state)
+  //  console.log(state.productsReducer)
+  return{
+    cart:state.cartReducer.cart,
+    cartLoader:state.cartReducer.cartLoader,
+    itemsNum:state.cartReducer.itemsNum
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Header); 
