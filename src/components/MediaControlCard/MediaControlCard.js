@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MediaControlCard({title,img,quantity,deleteBtn}) {
+export default function MediaControlCard({title,img,quantityComp,deleteBtn}) {
   const classes = useStyles();
 
 
@@ -42,13 +42,14 @@ export default function MediaControlCard({title,img,quantity,deleteBtn}) {
         image={img}
         title="Live from space album cover"
       />:<LoadingIndicator/>}
-      <div className>
+      <div>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
             {title}
           </Typography>
-           {(quantity)?quantity:""}
-           <div style={{textAlign:"center"}}>
+         
+           <div style={{textAlign:"center",display:"flex"}}>
+               {(quantityComp)?quantityComp:""}
              {{deleteBtn}?deleteBtn:""}
            </div>
         </CardContent>
