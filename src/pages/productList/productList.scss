@@ -1,7 +1,10 @@
 .ProductListContainer{
     margin-top:10px;
 }
-.grid-custom .MuiPaper-root{
-    height: 100%;
+.grid-custom {
+    margin-bottom:3rem!important;
+    .MuiPaper-root{
+        height: 100%;
+    }
 }
 
