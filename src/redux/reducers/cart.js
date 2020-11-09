@@ -1,33 +1,68 @@
 //reducer(action,state) //return update state
 
 import * as actionType from '../constants/actionTypes';
-export default function cartReducer(state={},action){
+const initState ={
+    cart:[],
+    total: 0,
+     itemsNum:0,
+    quantity:0,
+    quantityValue:0
+}
+export default function cartReducer(state=initState,action){
     switch(action.type){
-        case actionType.GET_ITEMS_FROM_CART :{
-            console.log(action,state)
-            return{
-               cartLoader:false,
-               cart:action.payload.cart
-            }
-        }
         case actionType.ADD_ITEM_TO_CART :{
-            console.log(action,state)
-            return{
-                ...state,
-               newItem:action.payload.newItem
-            }
-        }
-        case actionType.UPDATE_ITEM_IN_CART :{
-            console.log(action,state)
-            return{
-               ...state,
-               updatedItem:action.payload.updatedItem
+            let newItem=action.payload.newItem
+            let existItem=state.cart.find(item=>item.id===newItem.id)
+            if(!existItem){
+                 newItem.quantity=1;
+                 return{
+                     ...state,
+                    cartLoader:false,
+                    newItem,
+                    itemsNum:state.itemsNum+1,
+                    cart: [...state.cart,newItem],
+                }
+            }else{
+                newItem.quantity+=1;
+                 return{
+                     ...state,
+                    cartLoader:false,
+                    newItem,
+                    itemsNum:state.itemsNum,
+                    cart:[...state.cart],
+                }
             }
         }
         case actionType.DELETE_ITEM_IN_CART :{
             console.log(action,state)
+            let deletedItemID=action.payload.deletedItemID
             return{
+                ...state,
+                deletedItemID,
+                itemsNum:state.itemsNum-1,
+                cart:state.cart.filter(item => item.id !== deletedItemID)
                //remove //deletedItem:action.payload.deletedItem //remove from store(state)
+            }
+        }
+        case actionType.INCREMENT_QUANTITY :{
+            console.log(action,state)
+            return{
+                ...state,
+                quantityValue:action.payload.quantityValue+1
+            }
+        }
+        case actionType.DECREMENT_QUANTITY :{
+            console.log(action,state)
+            return{
+                ...state,
+                quantityValue:action.payload.quantityValue-1
+            }
+        }
+        case actionType.INITALIZE_QUANTITY :{
+            console.log(action,state)
+            return{
+                ...state,
+                quantityValue:action.payload.quantityValue
             }
         }
         default : return state;
