@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateButton({color,text,href}) {
+export default function CreateButton({color,text,href,onClick}) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Button variant="contained" color={color} href={href}>
+      <Button variant="contained" color={color} href={href} onClick={onClick}>
         {text}
       </Button>
     </div>
