@@ -23,7 +23,8 @@ class ProductDetails extends Component {
                   <div>
                     <h3>{this.props.singleProduct.title}</h3>
                     <p>{this.props.singleProduct.description}</p>
-                    <CreateButton color="primary" text="Add to cart" href="#"/>
+                    {/* <CreateButton color="primary" text="Add to cart" href="#"/> */}
+                    <button onClick={(e)=>this.props.addItemInCart(this.props.singleProduct)}>Add to cart</button>
                   </div>
                 </div>:<LoadingIndicator/>}
             </div>
@@ -43,6 +44,7 @@ function mapDispatchToProps(dispatch){
   return{
    getProducts : ()=>dispatch(actions.getProducts()),
    getSingleProduct :(id)=>dispatch(actions.getSingleProduct(id)),
+    addItemInCart :(item)=>dispatch(actions.addItemInCart(item)),
   }
 } 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductDetails); 
