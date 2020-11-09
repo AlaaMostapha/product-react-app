@@ -17,12 +17,14 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Header/>
         <Router>
-          <Route exact path={["/", "/products"]} component={ProductList}/>
-          <Route   exact path="/products/:productId" component={ProductDetails}/>
-          <Route exact path="/ReviewOrder" component={ReviewOrder}/>
-          <Route exact path="/OrderNow" component={OrderNow}/>
+          <Header/>
+          <Switch>
+            <Route exact path={["/", "/products"]} component={ProductList}/>
+            <Route   exact path="/products/:productId" component={ProductDetails}/>
+            <Route exact path="/ReviewOrder" component={ReviewOrder}/>
+            <Route exact path="/OrderNow" component={OrderNow}/>
+          </Switch>
         </Router>
       </div>
     </Provider>
