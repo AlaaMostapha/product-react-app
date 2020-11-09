@@ -8,17 +8,18 @@ import Quantity from '../../components/quantity/quantity'
 class Cart extends Component {
     state = {  }
     render() { 
-          const{title,img}=this.props
+          const{title,img,onDelete,quantity}=this.props
+          
         return (  
             <React.Fragment>
-                {console.log("ReviewOrder")}
+                {console.log(quantity)}
                 <MediaControlCard
+                className="carte"
                  title={title}
                  img={img}
-                 quantity={<Quantity/>}
-                 deleteBtn={ <CreateButton color="secondary" text={ <DeleteIcon />} href="#"/>}
+                 quantityComp={<Quantity quantity={quantity}/>}
+                 deleteBtn={ <CreateButton color="secondary" text={ <DeleteIcon />} onClick={onDelete}/>}
                 />
-               
             </React.Fragment>
         );
     }
