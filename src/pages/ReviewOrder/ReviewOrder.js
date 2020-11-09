@@ -3,25 +3,57 @@ import './ReviewOrder.scss';
 // import  MediaControlCard from '../../components/MediaControlCard/MediaControlCard';
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../redux/actions/actions';
-import  MediaCard from '../../components/Card/Card';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Quantity from '../../components/quantity/quantity'
 import  CreateButton from '../../components/Btn/Btn';
-import OrderNow from '../UserFormOrderNow/OrderNow';
+import * as actions from '../../redux/actions/actions';
 class ReviewOrder extends Component {
 //each product display with quantity and delete btn //rest unit price and total price
-    componentDidMount(){
-        // this.props.getItemsFromCart()
-        console.log(this.props.newItem)
-        console.log("rrrrr")
+constructor(props){
+    super(props);
+    this.total=0;
+    this.state={
+        quantity:0
     }
-    calculatTotalPrice(price,quantity){
+}
+
+    componentDidMount(){
+        console.log(this.total)
+    }
+    componentDidUpdate(){
+        console.log(this.total)
+    }
+    calculatTotalUnitPrice(price,quantity){
+        this.calculatTotalPrice(price*quantity)
+        console.log(price*quantity)
         return price*quantity
+    }
+    calculatTotalPrice(subTotal){
+        this.total=+this.total+subTotal
+                this.total.toFixed(2)
+                console.log(this.total)
+                return this.total
+        //update value in constructor with new subtotal
+    }
+
+    changeQuantity=(childData)=>{
+        // console.log(childData)=
+        if( childData===undefined)childData=0
+        this.setState({
+            quantity:childData
+        })
+    }
+    removeItemFromCart=(productId)=>{
+       this.total=0
+        this.props.deleteItemInCart(productId)
+    }
+    getQuantity(q){
+        this.setState({
+            quantity:q
+        })
+        console.log(this.state.quantity)
     }
     createList(){
            const {cart}=this.props
@@ -30,24 +62,25 @@ class ReviewOrder extends Component {
       if(cart) { 
         return (cart || []).map((product)=>{
          return(
-            <tr>
-                <Grid item xs={3} key={product.id} className="grid-custom">
-                    <td>
-                        <Paper>
-                            <MediaCard title={product.title} 
-                                discription={product.description} 
-                                img={product.image}
-                                alt={product.title}
-                                quantity={<Quantity/>}
-                                deleteBtn={ <CreateButton color="secondary" text={ <DeleteIcon />} href="#"/>}
-                            />
-                        </Paper>
-                    </td>
-                    <td>{product.price}</td>
-                     {/* get value from quantity component from usestate and send it to func */}
-                    <td>{()=>this.calculatTotalPrice(product.price,"quantity")}</td>
-                </Grid>
-            </tr>
+                   <tr>
+                        <td>
+                            <div style={{display:"flex",justifyContent:"space-between"}}>
+                                <div  style={{display:"flex"}}>
+                                    <img src={product.image} alt={product.title} className="reviewPageImg"/>
+                                    <h4> {product.title}</h4>
+                                </div>
+                                <div>
+                                   <br/>
+                                    <Quantity  quantity={product.quantity} onChangeQuantity={(q)=>this.getQuantity(q)}/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{product.price}</td>
+                        {/* get value from quantity component from usestate and send it to func */}
+                        <td>{this.calculatTotalUnitPrice(product.price,product.quantity)}</td>
+                        <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id,product.price,product.quantity)}/></td>
+                        {/* <td><button onClick={()=>this.removeItemFromCart(product.id)}>delete</button></td> */}
+                   </tr>    
          )
        })
       }
@@ -60,19 +93,36 @@ class ReviewOrder extends Component {
         const{cartLoader}=this.props
         return (  
              <Container maxWidth="lg" className="ProductListContainer">
+                 <h2 className="text-center">Review Your Order</h2>
                 {(cartLoader) ?  <LoadingIndicator/>:
                     <table>
-                         <tr>
-                            <th>item</th>
-                            <th>unit price</th>
-                            <th>total price</th>
-                        </tr>
-                        <Grid container spacing={2} > 
-                            {this.createList()}
-                        </Grid>
+                         <thead>
+                            <tr>
+                                <th>item</th>
+                                <th>unit price</th>
+                                <th>total price</th>
+                                <th>Delete</th>
+                            </tr>
+                         </thead>
+
+                        {/* <Grid container spacing={2} >  */}
+                            <tbody>
+                                {this.createList()}
+                            </tbody>
+                        {/* </Grid> */}
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td>{this.total.toFixed(3)}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
                    </table>
                 }
-                <CreateButton color="primary" text="Order Now"  onClick={this.redirectToUserForm}/>
+               <div style={{textAlign:"center"}}>
+                    <CreateButton color="primary" text="Order Now"  onClick={this.redirectToUserForm}/>
+               </div>
             </Container>
         );
     }
@@ -80,7 +130,7 @@ class ReviewOrder extends Component {
  
 function mapDispatchToProps(dispatch){
   return{
-   getItemsFromCart: ()=>dispatch(actions.getItemsFromCart())
+   deleteItemInCart: (id)=>dispatch(actions.deleteItemInCart(id))
   }
 } 
 function mapStateToProps(state){
@@ -89,8 +139,7 @@ function mapStateToProps(state){
   return{
     cart:state.cartReducer.cart,
     cartLoader:state.cartReducer.cartLoader,
-    newItem:state.cartReducer.newItem ,//obj
-    // quantity:state.cartReducer.newItemData.quantity 
+    quantityValue:state.cartReducer.quantityValue
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(ReviewOrder); 
