@@ -6,7 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import  CreateButton from '../../components/Btn/Btn';
+
 
 const useStyles = makeStyles({
   root: {
@@ -17,11 +17,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard({title,discription,img,alt,onClick}) {
+export default function MediaCard({title,discription,img,alt,btn}) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} onClick={onClick}>
+    <Card className={classes.root} >
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -37,7 +37,7 @@ export default function MediaCard({title,discription,img,alt,onClick}) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CreateButton color="primary" text="Add to cart" href="#"/>
+    {btn?btn:""}
     </Card>
   );
 }
