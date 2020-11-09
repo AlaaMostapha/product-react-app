@@ -32,30 +32,36 @@ export const showSingleProduct =(response)=>({
 })
 
 //cart
-export const getItemsFromCart =(items)=>({
-    type: actionType.GET_ITEMS_FROM_CART,
-    payload: {
-        cart:items
-    }
-})
 export const addItemInCart=(item)=>({
-    type: actionType.EDIT_ITEM_IN_CART,
+    type: actionType.ADD_ITEM_TO_CART,
     payload: {
-        newItem:item
+        newItem:item,
     }
 })
 
-export const updateItemInCart = (item) =>({
-    type: actionType.UPDATE_ITEM_IN_CART,
-    payload :{
-        //return updated item //item is updated item
-        updatedItem:item
-    }
-})
-
-export const deleteItemInCart =(item)=>({
+export const deleteItemInCart =(itemID)=>({
     type: actionType.DELETE_ITEM_IN_CART,
     payload :{
-        deletedItem:item
+        deletedItemID:itemID
+    }
+})
+
+export const incrementQuantity =(quantityValue)=>({
+    type: actionType.INCREMENT_QUANTITY,
+    payload :{
+        quantityValue
+    }
+})
+export const decrementQuantity =(quantityValue)=>({
+    type: actionType.DECREMENT_QUANTITY,
+    payload :{
+        quantityValue
+    }
+})
+
+export const initializeQuantity =(quantityValue)=>({
+    type: actionType.INITALIZE_QUANTITY,
+    payload :{
+        quantityValue
     }
 })
