@@ -4,27 +4,45 @@ import  CreateButton from '../../components/Btn/Btn';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import Quantity from '../../components/quantity/quantity';
 class ProductDetails extends Component {
+  state={
+    clicked:false
+  }
+  componentDidUpdate(){
+     console.log(this.props.singleProduct.quantity)
+  }
    componentDidMount(){  
       const {productId}=this.props.match.params
       console.log(productId);
       this.props.getSingleProduct(productId)
+      // console.log(this.props.singleProduct.quantity)
     }
-    
+    addItem=(singleProduct)=>{
+      console.log(this.props.addItemInCart(singleProduct))
+      this.setState({
+        clicked:true
+      })
+    }
     state = {  }
     render() { 
-      // const{title,image,alt,description}=this.props.singleProduct;
+       const{singleProduct}=this.props;
         return (  
              <div >
               
-                {(this.props.singleProduct)?
+                {(singleProduct)?
                 <div style={{display:"flex",textAlign:"left"}}>
-                  <img src={this.props.singleProduct.image} alt={this.props.singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
+                  <img src={singleProduct.image} alt={singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
                   <div>
-                    <h3>{this.props.singleProduct.title}</h3>
-                    <p>{this.props.singleProduct.description}</p>
+                    <h3>{singleProduct.title}</h3>
+                    <p>{singleProduct.description}</p>
+                    <h4>{singleProduct.price}</h4>
                     {/* <CreateButton color="primary" text="Add to cart" href="#"/> */}
-                    <button onClick={(e)=>this.props.addItemInCart(this.props.singleProduct)}>Add to cart</button>
+                    {console.log(singleProduct.quantity)}
+                    {(this.state.clicked)?<Quantity item={singleProduct}/>:
+                      // <button onClick={()=>this.addItem(singleProduct)}>Add to cart</button>
+                     <CreateButton color="primary" text="Add to cart"onClick={()=>this.addItem(singleProduct)}/>
+                     }
                   </div>
                 </div>:<LoadingIndicator/>}
             </div>
