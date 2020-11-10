@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
+import FadeMenu from '../../components/Menu/Menu';
 import Menu from '@material-ui/core/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Cart from '../Cart/Cart';
@@ -37,8 +38,8 @@ function Header(props) {
 
 
   const handleMenu = (event) => {
-    console.log(event)
-    console.log(event.currentTarget)
+    // console.log(event)
+    // console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   };
 
@@ -55,63 +56,34 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
           <Typography variant="h6" className={classes.title}>
             Products
           </Typography>
-          
-            <div>
-              {/* <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>View/ Edit Profile </MenuItem>
-                <MenuItem onClick={handleClose}>Sign Out</MenuItem>
-              </Menu> */}
-            </div>
-            
-            <IconButton aria-label="add to shopping cart"  onClick={handleMenu}>
+          <FadeMenu iconType={AccountCircle} items={['View/ Edit Profile','Sign out']} ariaLabel={"account of current user"}/>
+            <IconButton aria-label="add to shopping cart"  onClick={handleMenu} 
+            aria-controls="menu-appbar"
+                aria-haspopup="true">
                   <Badge  badgeContent={props.itemsNum} color="secondary">
                     <AddShoppingCartIcon style={{ color: 'white' }}/>
                   </Badge>
+                   </IconButton>
                 <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
+                getContentAnchorEl={null}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: 'bottom',
+                  horizontal: 'center',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right',
+                  horizontal: 'center',
                 }}
                 open={open}
                 onClose={handleClose}
               >
-                 <MenuItem onClick={handleClose}>close</MenuItem>
+                 {/* <MenuItem onClick={handleClose}>X</MenuItem> */}
                 {(props.cart || [] ).slice(0, 3).map(item=>{
                   return(
                     <MenuItem key={item.id}>
@@ -119,9 +91,10 @@ function Header(props) {
                       title={item.title}
                       img={item.image}
                       onDelete={()=>removeItemFromCart(item.id)}
-                      quantity={item.quantity}
+                      item={item}
                       // onChangeQuantity
-                      /> {console.log(item.quantity)}
+                      /> 
+                      {/* {console.log(item.quantity)} */}
                   </MenuItem>
                   )
                 })}
@@ -129,7 +102,7 @@ function Header(props) {
                   <CreateButton color="primary" text="Review Order" onClick={reviewPage}/>
                 </MenuItem>
               </Menu>
-            </IconButton>
+           
         </Toolbar>
       </AppBar>
     </div>
@@ -141,7 +114,7 @@ function mapDispatchToProps(dispatch){
   }
 } 
 function mapStateToProps(state){
-  console.log(state)
+  // console.log(state)
   //  console.log(state.productsReducer)
   return{
     cart:state.cartReducer.cart,

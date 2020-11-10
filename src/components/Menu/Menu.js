@@ -1,39 +1,60 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import './Menu.scss'
+// import AccountCircle from '@material-ui/icons/AccountCircle';
+import IconButton from '@material-ui/core/IconButton';
 
-export default function FadeMenu() {
+export default function FadeMenu(props) {
+  //  console.log(props)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+ const handleMenu = (event) => {
+    // console.log(event)
+    // console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
+   
     <div>
-      <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
-       <img src="https://i.vippng.com/png/small/355-3554387_create-digital-profile-icon-blue-profile-icon-png.png" 
-        alt=""
-        className="profileImg"/>
-      </Button>
+    <IconButton
+    aria-label={props.ariaLabel}
+    aria-controls="menu-appbar"
+    aria-haspopup="true"
+    onClick={handleMenu}
+    color="inherit"
+    >
+      <props.iconType />
+    </IconButton>
       <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
+        id="menu-appbar"
+    anchorEl={anchorEl}
+        getContentAnchorEl={null}
+    anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+    }}
+    keepMounted
+    transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+    }}
+    open={open}
+    onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>View/ Edit Profile </MenuItem>
-        <MenuItem onClick={handleClose}>Sign Out </MenuItem>
+        {props.items.map((link) =>
+          <MenuItem onClick={handleClose} key={link}>{link}</MenuItem>
+        )} 
+       {/* {<MenuItem onClick={handleClose}>View/  Edit Profile </MenuItem> 
+         <MenuItem onClick={handleClose}>Sign Out </MenuItem> */}
       </Menu>
     </div>
   );
