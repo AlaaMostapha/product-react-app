@@ -14,9 +14,10 @@ class ReviewOrder extends Component {
 constructor(props){
     super(props);
     this.total=0;
-    this.state={
-        quantity:0
-    }
+
+    // this.state={
+    //     quantity:0
+    // }
 }
 
     componentDidMount(){
@@ -24,6 +25,7 @@ constructor(props){
     }
     componentDidUpdate(){
         console.log(this.total)
+       
     }
     calculatTotalUnitPrice(price,quantity){
         this.calculatTotalPrice(price*quantity)
@@ -38,23 +40,18 @@ constructor(props){
         //update value in constructor with new subtotal
     }
 
-    changeQuantity=(childData)=>{
-        // console.log(childData)=
-        if( childData===undefined)childData=0
-        this.setState({
-            quantity:childData
-        })
-    }
+    // changeQuantity=(childData)=>{
+    //     // console.log(childData)=
+    //     if( childData===undefined)childData=0
+    //     this.setState({
+    //         quantity:childData
+    //     })
+    // }
     removeItemFromCart=(productId)=>{
        this.total=0
         this.props.deleteItemInCart(productId)
     }
-    getQuantity(q){
-        this.setState({
-            quantity:q
-        })
-        console.log(this.state.quantity)
-    }
+  
     createList(){
            const {cart}=this.props
 
@@ -62,7 +59,7 @@ constructor(props){
       if(cart) { 
         return (cart || []).map((product)=>{
          return(
-                   <tr>
+                   <tr key={product.id}>
                         <td>
                             <div style={{display:"flex",justifyContent:"space-between"}}>
                                 <div  style={{display:"flex"}}>
@@ -71,15 +68,13 @@ constructor(props){
                                 </div>
                                 <div>
                                    <br/>
-                                    <Quantity  quantity={product.quantity} onChangeQuantity={(q)=>this.getQuantity(q)}/>
+                                    <Quantity  item={product} />
                                 </div>
                             </div>
                         </td>
                         <td>{product.price}</td>
-                        {/* get value from quantity component from usestate and send it to func */}
                         <td>{this.calculatTotalUnitPrice(product.price,product.quantity)}</td>
-                        <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id,product.price,product.quantity)}/></td>
-                        {/* <td><button onClick={()=>this.removeItemFromCart(product.id)}>delete</button></td> */}
+                        <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id)}/></td>
                    </tr>    
          )
        })
