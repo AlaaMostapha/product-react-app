@@ -10,41 +10,20 @@ import * as actions from '../../redux/actions/actions';
 import Quantity from '../../components/quantity/quantity';
 import  CreateButton from '../../components/Btn/Btn';
 class ProductList extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      items:this.props.cart,
-      checked:false 
-    }
-     this.state.checked = this.state.items.map(() => false);
-  }
+
  check=(id)=>{
    //func to send clicked product to product details using id
-   console.log('click')
+  //  console.log('click')
     return   this.props.history.push(`products/${id}`);  
   }
-componentDidUpdate(){
-  //  console.log(this.props.newItem)
-  //  console.log(this.props.cart)
-  //  console.log(this.state.items)
-}
+
   componentDidMount(){  
     //when component mount get all products
     this.props.getProducts(); 
   }
-  addItem=(item,id,btn)=>{
+  addItem=(item,id)=>{
     //func to add clicked product to cart
-    console.log(btn)
    console.log( this.props.addItemInCart(item))
-        console.log(this.props.cart.find(singleItem=>singleItem.id==id))
-        // this.setState({
-        //     checked:true
-        //   })
-        // item.checked=true
-        let index = this.state.items.findIndex(box => box.id==id);
-    this.setState({
-      checked: this.state.checked.map((c,i) => i==index ? !c : c)
-    })
   }
   createList=()=>{   
       const {products}=this.props
@@ -60,10 +39,10 @@ componentDidUpdate(){
                    alt={product.title}
                    />
             </Paper>
-             <div className="text-center">
-                {(this.state.items.checked)?<Quantity/>:
-                //  <CreateButton color="primary" text="Add to cart" onClick={(e)=>this.addItem(product,product.id,e.target)}/>
-                 <button onClick={(e)=>this.addItem(product,product.id,e.target)}>Add to cart</button>
+             <div className="text-center" style={{margin:"5px"}}>
+                {(product.quantity>0)?<Quantity item={product}/>:
+                 <CreateButton color="primary" text="Add to cart" onClick={()=>this.addItem(product,product.id)}/>
+                //  <button onClick={(e)=>this.addItem(product,product.id)} style={{margin:"5px"}}>Add to cart</button>
                  }
              </div>
             </Grid>
@@ -97,7 +76,7 @@ function mapDispatchToProps(dispatch){
   }
 } 
 function mapStateToProps(state){
-  console.log(state)
+  // console.log(state)
   return{
     products:state.productsReducer.products,
     loading:state.productsReducer.loader,
