@@ -46,22 +46,22 @@ export const deleteItemInCart =(itemID)=>({
     }
 })
 
-export const incrementQuantity =(quantityValue)=>({
+export const incrementQuantity =(item)=>({
     type: actionType.INCREMENT_QUANTITY,
     payload :{
-        quantityValue
+        item
     }
 })
-export const decrementQuantity =(quantityValue)=>({
+export const decrementQuantity =(item)=>({
     type: actionType.DECREMENT_QUANTITY,
     payload :{
-        quantityValue
+        item
     }
 })
 
-export const initializeQuantity =(quantityValue)=>({
-    type: actionType.INITALIZE_QUANTITY,
-    payload :{
-        quantityValue
-    }
-})
+// export const initializeQuantity =(quantityValue)=>({
+//     type: actionType.INITALIZE_QUANTITY,
+//     payload :{
+//         quantityValue
+//     }
+// })

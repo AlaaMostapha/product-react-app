@@ -3,10 +3,10 @@
 import * as actionType from '../constants/actionTypes';
 const initState ={
     cart:[],
-    total: 0,
+    // total: 0,
      itemsNum:0,
-    quantity:0,
-    quantityValue:0
+    // quantity:0,
+    // quantityValue:0
 }
 export default function cartReducer(state=initState,action){
     switch(action.type){
@@ -23,7 +23,7 @@ export default function cartReducer(state=initState,action){
                     cart: [...state.cart,newItem],
                 }
             }else{
-                newItem.quantity+=1;
+                // newItem.quantity+=1;
                  return{
                      ...state,
                     cartLoader:false,
@@ -34,7 +34,7 @@ export default function cartReducer(state=initState,action){
             }
         }
         case actionType.DELETE_ITEM_IN_CART :{
-            console.log(action,state)
+            // console.log(action,state)
             let deletedItemID=action.payload.deletedItemID
             return{
                 ...state,
@@ -45,26 +45,34 @@ export default function cartReducer(state=initState,action){
             }
         }
         case actionType.INCREMENT_QUANTITY :{
-            console.log(action,state)
+            // console.log(action,state)
+            // console.log(action.payload.item)
             return{
                 ...state,
-                quantityValue:action.payload.quantityValue+1
+                // quantityValue:action.payload.quantityValue+1,
+                item:{
+                    // ...state.item,
+                    quantity:++action.payload.item.quantity
+                }
             }
         }
         case actionType.DECREMENT_QUANTITY :{
-            console.log(action,state)
+            // console.log(action,state)
             return{
                 ...state,
-                quantityValue:action.payload.quantityValue-1
+                item:{
+                    // ...state.item,
+                    quantity:--action.payload.item.quantity
+                }
             }
         }
-        case actionType.INITALIZE_QUANTITY :{
-            console.log(action,state)
-            return{
-                ...state,
-                quantityValue:action.payload.quantityValue
-            }
-        }
+        // case actionType.INITALIZE_QUANTITY :{
+        //     // console.log(action,state)
+        //     return{
+        //         ...state,
+        //         quantityValue:action.payload.quantityValue
+        //     }
+        // }
         default : return state;
     }
 }
