@@ -45,8 +45,8 @@ constructor(props){
         // this.setState({
         //     subtotal:price*quantity 
         // })
-        return price*quantity
-            
+        // return price*quantity
+            return subtotal;
         //     subtotal=price*quantity 
         // console.log(this.subtotal)
         // return  this.subtotal
