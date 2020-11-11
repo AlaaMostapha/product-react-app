@@ -5,7 +5,7 @@ import { useDispatch} from "react-redux";
 import * as actions from '../../redux/actions/actions';
 
 function Quantity(props) {
-    const{item,key}=props
+    const{item}=props
     
     
     // const cartx = useSelector(state => state.cartReducer.newItem.quantity);
@@ -29,7 +29,7 @@ function Quantity(props) {
       }
         setinputValue(item.quantity)
         if(props.fun){
-            props.fun(item.price,item.quantity)
+            props.fun(item)
        }
     }
 
@@ -37,7 +37,7 @@ function Quantity(props) {
         console.log(dispatch(actions.incrementQuantity(item)))
         setinputValue(item.quantity)
        if(props.fun){
-            props.fun(item.price,item.quantity)
+            props.fun(item)
        }
     }
     const handleChange = (event) =>{
@@ -47,7 +47,7 @@ function Quantity(props) {
     }
 
     return ( 
-        <div className="quantity" key={key}>
+        <div className="quantity" >
             <div className="value-button" id="decrease" onClick={decreaseValue} value="Decrease Value">-</div>
             <input type="number" id="number" value={inputValue} ref={inputRef}  onChange={handleChange}/>
             <div className="value-button" id="increase" onClick={increaseValue} value="Increase Value">+</div>
