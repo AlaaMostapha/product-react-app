@@ -14,29 +14,47 @@ class ReviewOrder extends Component {
 constructor(props){
     super(props);
     this.total=0;
-
-    // this.state={
-    //     quantity:0
-    // }
+    // this.subtotal=0;
+    this.state={
+        subtotal:0
+    }
 }
-
+// static getDerivedStateFromProps(nextProps, prevState) {
+//     if (nextProps.key !== prevState.key) {
+//         return { 
+//             cart: this.props.cart
+//         };
+//     }
+//     return null;
+// }
     componentDidMount(){
         console.log(this.total)
+         console.log(this.state.cartState)
     }
-    componentDidUpdate(){
+    componentDidUpdate(prevProps){
         console.log(this.total)
-       
+       console.log(`cart state ${this.state.cartState}`)
     }
-    calculatTotalUnitPrice(price,quantity){
-        this.calculatTotalPrice(price*quantity)
-        console.log(price*quantity)
+    calculatTotalUnitPrice=(price,quantity)=>{
+        console.log(`price ${price}`)
+        console.log(`quantity ${quantity}`)
+        const subtotal=price*quantity 
+        console.log(`subtotal ${subtotal}`)
+        // eslint-disable-next-line use-isnan
+        // this.calculatTotalPrice(price*quantity)
+        // this.setState({
+        //     subtotal:price*quantity 
+        // })
         return price*quantity
+            
+        //     subtotal=price*quantity 
+        // console.log(this.subtotal)
+        // return  this.subtotal
     }
     calculatTotalPrice(subTotal){
-        this.total=+this.total+subTotal
-                this.total.toFixed(2)
-                console.log(this.total)
-                return this.total
+        this.total+=subTotal
+        console.log(`total ${this.total}`)
+        return this.total
         //update value in constructor with new subtotal
     }
 
@@ -51,16 +69,20 @@ constructor(props){
        this.total=0
         this.props.deleteItemInCart(productId)
     }
-  
+  componentWillReceiveProps(nextProps) {
+      console.log(`nextProps ${nextProps}`)
+  this.setState({ cartState: nextProps.cart });  
+   console.log(`cart state ${this.state.cartState}`)
+}
     createList(){
            const {cart}=this.props
 
       // console.log(products)
       if(cart) { 
-        return (cart || []).map((product)=>{
+        return (cart|| []).map((product)=>{
          return(
                    <tr key={product.id}>
-                        <td>
+                        <td key={product.id}> 
                             <div style={{display:"flex",justifyContent:"space-between"}}>
                                 <div  style={{display:"flex"}}>
                                     <img src={product.image} alt={product.title} className="reviewPageImg"/>
@@ -68,12 +90,12 @@ constructor(props){
                                 </div>
                                 <div>
                                    <br/>
-                                    <Quantity  item={product} />
+                                    <Quantity item={product} fun={this.calculatTotalUnitPrice} key={product.id}/>
                                 </div>
                             </div>
                         </td>
                         <td>{product.price}</td>
-                        <td>{this.calculatTotalUnitPrice(product.price,product.quantity)}</td>
+                        <td >{ this.calculatTotalUnitPrice()}</td>
                         <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id)}/></td>
                    </tr>    
          )

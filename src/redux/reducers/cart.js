@@ -23,7 +23,7 @@ export default function cartReducer(state=initState,action){
                     cart: [...state.cart,newItem],
                 }
             }else{
-                // newItem.quantity+=1;
+                newItem.quantity+=1;
                  return{
                      ...state,
                     cartLoader:false,
