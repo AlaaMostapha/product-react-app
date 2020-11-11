@@ -13,67 +13,49 @@ class ReviewOrder extends Component {
 //each product display with quantity and delete btn //rest unit price and total price
 constructor(props){
     super(props);
-    this.total=0;
-    // this.subtotal=0;
-    this.state={
-        subtotal:0
-    }
-}
-// static getDerivedStateFromProps(nextProps, prevState) {
-//     if (nextProps.key !== prevState.key) {
-//         return { 
-//             cart: this.props.cart
-//         };
-//     }
-//     return null;
-// }
-    componentDidMount(){
-        console.log(this.total)
-         console.log(this.state.cartState)
-    }
-    componentDidUpdate(prevProps){
-        console.log(this.total)
-       console.log(`cart state ${this.state.cartState}`)
-    }
-    calculatTotalUnitPrice=(price,quantity)=>{
-        console.log(`price ${price}`)
-        console.log(`quantity ${quantity}`)
-        const subtotal=price*quantity 
-        console.log(`subtotal ${subtotal}`)
-        // eslint-disable-next-line use-isnan
-        // this.calculatTotalPrice(price*quantity)
-        // this.setState({
-        //     subtotal:price*quantity 
-        // })
-        // return price*quantity
-            return subtotal;
-        //     subtotal=price*quantity 
-        // console.log(this.subtotal)
-        // return  this.subtotal
-    }
-    calculatTotalPrice(subTotal){
-        this.total+=subTotal
-        console.log(`total ${this.total}`)
-        return this.total
-        //update value in constructor with new subtotal
-    }
+    this.carttotal=0;
 
-    // changeQuantity=(childData)=>{
-    //     // console.log(childData)=
-    //     if( childData===undefined)childData=0
-    //     this.setState({
-    //         quantity:childData
-    //     })
-    // }
+}
+    componentDidMount(){
+        // this.calculatTotalPrice()
+        // console.log(this.cartTotal)
+    }
+    componentDidUpdate(){
+        console.log("update comp cart")
+        console.log(this.props.cart)
+    }
+    calculatTotalUnitPrice=(item)=>{
+        // this.calculatTotalPrice()
+        if(item){
+            const price = item.price;
+            const quantity= item.quantity
+            console.log(price*quantity)
+            return price*quantity
+        }
+        
+    }
+    //seprated func to calculate total from cart in props
+    calculatTotalPrice(){
+        console.log(this.props.cart)
+      const cartTotal=this.props.cart.reduce(function(accumlator,product){
+            return accumlator + product.price*product.quantity
+        },0).toFixed(3);
+       console.log(cartTotal);
+       return cartTotal;
+    }
     removeItemFromCart=(productId)=>{
        this.total=0
         this.props.deleteItemInCart(productId)
     }
-  componentWillReceiveProps(nextProps) {
-      console.log(`nextProps ${nextProps}`)
-  this.setState({ cartState: nextProps.cart });  
-   console.log(`cart state ${this.state.cartState}`)
-}
+   
+static getDerivedStateFromProps(props, state) {
+    console.log(state);
+    console.log(props)
+        return {
+            cart:props.cart
+        }
+    
+  }
     createList(){
            const {cart}=this.props
 
@@ -82,7 +64,7 @@ constructor(props){
         return (cart|| []).map((product)=>{
          return(
                    <tr key={product.id}>
-                        <td key={product.id}> 
+                        <td > 
                             <div style={{display:"flex",justifyContent:"space-between"}}>
                                 <div  style={{display:"flex"}}>
                                     <img src={product.image} alt={product.title} className="reviewPageImg"/>
@@ -95,7 +77,7 @@ constructor(props){
                             </div>
                         </td>
                         <td>{product.price}</td>
-                        <td >{ this.calculatTotalUnitPrice()}</td>
+                        <td >{product.updatedPrice} - {product.price*product.quantity} - {this.calculatTotalUnitPrice()}</td>
                         <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id)}/></td>
                    </tr>    
          )
@@ -131,7 +113,7 @@ constructor(props){
                             <tr>
                                 <td>Total</td>
                                 <td></td>
-                                <td>{this.total.toFixed(3)}</td>
+                                <td>{}{this.calculatTotalPrice()}</td>
                                 <td></td>
                             </tr>
                         </tfoot>

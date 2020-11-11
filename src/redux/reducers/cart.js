@@ -58,11 +58,13 @@ export default function cartReducer(state=initState,action){
         }
         case actionType.DECREMENT_QUANTITY :{
             // console.log(action,state)
+            // let price=action.payload.price;
             return{
                 ...state,
                 item:{
                     // ...state.item,
-                    quantity:--action.payload.item.quantity
+                    quantity:--action.payload.item.quantity,
+                    // price:price+price*action.payload.item.quantity,
                 }
             }
         }
