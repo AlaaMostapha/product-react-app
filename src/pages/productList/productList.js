@@ -11,23 +11,32 @@ import Quantity from '../../components/quantity/quantity';
 import  CreateButton from '../../components/Btn/Btn';
 class ProductList extends Component {
 
- check=(id)=>{
-   //func to send clicked product to product details using id
-  //  console.log('click')
-    return   this.props.history.push(`products/${id}`);  
-  }
-
   componentDidMount(){  
     //when component mount get all products
     this.props.getProducts(); 
   }
+  check=(id)=>{
+   //func to send clicked product to product details using id on click
+    return   this.props.history.push(`products/${id}`);  
+  }
   addItem=(item,id)=>{
-    //func to add clicked product to cart
-   console.log( this.props.addItemInCart(item))
+    //add clicked product to cart
+    const{cart,products,showProducts,addItemInCart}=this.props;
+    addItemInCart(item);
+    //check if this item is in cart & has quantity return it and update products
+    const  checkProduct = cart.find(product=>product.id===item.id) //check if it was in cart
+    if(checkProduct){
+      const itemIndexInProducts=this.props.products.indexOf(item); //get it's index from products
+      products[itemIndexInProducts]=checkProduct; //replace it with old one
+      if(itemIndexInProducts!==-1){
+        showProducts(products) //update
+      }
+    }
+   
   }
   createList=()=>{   
       const {products}=this.props
-      // console.log(products)
+      console.log(products)
       if(products) { 
         return (products || []).map((product,index)=>{
          return(
@@ -51,8 +60,6 @@ class ProductList extends Component {
       }
       
   }
-
-
     render() { 
         const{loading}=this.props
         return (  
@@ -62,7 +69,6 @@ class ProductList extends Component {
                  {this.createList()}
                    </Grid>
                    }
-
             </Container>
         );
     }
@@ -72,6 +78,7 @@ function mapDispatchToProps(dispatch){
   return{
    getProducts : ()=>dispatch(actions.getProducts()),
    addItemInCart :(item)=>dispatch(actions.addItemInCart(item)),
+   showProducts:(products)=>dispatch(actions.showProducts(products))
   //  getItemsFromCart: ()=>dispatch(actions.getItemsFromCart())
   }
 } 
