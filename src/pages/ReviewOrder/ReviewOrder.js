@@ -24,16 +24,16 @@ constructor(props){
         console.log("update comp cart")
         console.log(this.props.cart)
     }
-    calculatTotalUnitPrice=(item)=>{
-        // this.calculatTotalPrice()
-        if(item){
-            const price = item.price;
-            const quantity= item.quantity
-            console.log(price*quantity)
-            return price*quantity
-        }
+    // calculatTotalUnitPrice=(item)=>{
+    //     this.calculatTotalPrice()
+    //     if(item){
+    //         const price = item.price;
+    //         const quantity= item.quantity
+    //         console.log(price*quantity)
+    //         return price*quantity
+    //     }
         
-    }
+    // }
     //seprated func to calculate total from cart in props
     calculatTotalPrice(){
         console.log(this.props.cart)
@@ -72,12 +72,12 @@ static getDerivedStateFromProps(props, state) {
                                 </div>
                                 <div>
                                    <br/>
-                                    <Quantity item={product} fun={this.calculatTotalUnitPrice} key={product.id}/>
+                                    <Quantity item={product}  key={product.id}/>
                                 </div>
                             </div>
                         </td>
                         <td>{product.price}</td>
-                        <td >{product.updatedPrice} - {product.price*product.quantity} - {this.calculatTotalUnitPrice()}</td>
+                        <td >{product.price*product.quantity}</td>
                         <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id)}/></td>
                    </tr>    
          )

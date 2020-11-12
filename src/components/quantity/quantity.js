@@ -28,17 +28,11 @@ function Quantity(props) {
           setinputValue(item.quantity)
       }
         setinputValue(item.quantity)
-        if(props.fun){
-            props.fun(item)
-       }
     }
 
     const increaseValue=()=>{
         console.log(dispatch(actions.incrementQuantity(item)))
         setinputValue(item.quantity)
-       if(props.fun){
-            props.fun(item)
-       }
     }
     const handleChange = (event) =>{
         // console.log(props)
