@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './productDetails.scss';
 import  CreateButton from '../../components/Btn/Btn';
+import Container from '@material-ui/core/Container';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
@@ -31,14 +32,17 @@ class ProductDetails extends Component {
   render() { 
     const{singleProduct}=this.props;
     return (  
-      <div>
+       <Container maxWidth="lg">
         {(singleProduct)?
           <div style={{display:"flex",textAlign:"left"}}>
             <img src={singleProduct.image} alt={singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
             <div>
               <h3>{singleProduct.title}</h3>
+              <h4>Description:</h4>
               <p>{singleProduct.description}</p>
-              <h4>{singleProduct.price}</h4>
+             <div>
+                <h4>Price:</h4><p>{singleProduct.price}</p>
+             </div>
               {/* <CreateButton color="primary" text="Add to cart" href="#"/> */}
               {/* {console.log(singleProduct.quantity)} */}
               {(singleProduct.quantity)?<Quantity item={singleProduct}/>:
@@ -47,7 +51,7 @@ class ProductDetails extends Component {
             </div>
           </div>
           :<LoadingIndicator/>}
-      </div>
+     </Container>
     );
   }
 }

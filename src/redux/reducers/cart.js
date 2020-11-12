@@ -59,9 +59,14 @@ export default function cartReducer(state=initState,action){
             // let price=action.payload.price;
             let newCart = state.cart.filter(product =>product.id !==action.payload.item)
             action.payload.item.quantity=--action.payload.item.quantity
+            if(action.payload.item.quantity===0){
+                newCart.splice(action.payload.item);
+                state.itemsNum=state.itemsNum-1;
+            }
+            console.log(newCart)
             return{
                 ...state,
-                cart:newCart
+                cart:newCart,
             }
         }
         // case actionType.INITALIZE_QUANTITY :{
