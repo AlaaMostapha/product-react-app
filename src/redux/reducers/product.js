@@ -14,7 +14,7 @@ export default function singleProductReducer(state={},action){
         case actionType.GET_SINGLLE_PRODUCT :{
             console.log(action,state)
             return{
-                 singleProductloader: false,
+                singleProductloader: false,
                 singleProduct:action.payload.singleProduct,
             //    id:action.payload.singleProductId
             }

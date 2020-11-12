@@ -17,7 +17,7 @@ import  CreateButton from '../../components/Btn/Btn';
 import { useHistory } from "react-router-dom";
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
-
+import {Link} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -57,7 +57,7 @@ function Header(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Products
+            <Link to="/products" style={{color:"white",textDecoration:"none"}}>Products</Link>
           </Typography>
           <FadeMenu iconType={AccountCircle} items={['View/ Edit Profile','Sign out']} ariaLabel={"account of current user"}/>
             <IconButton aria-label="add to shopping cart"  onClick={handleMenu} 
