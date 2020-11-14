@@ -8,9 +8,9 @@ import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
 import Quantity from '../../components/quantity/quantity';
-import  CreateButton from '../../components/Btn/Btn';
+import  CreateButton from '../../components/Btn/Btn'; 
 class ProductList extends Component {
-
+  
   componentDidMount(){  
     //when component mount get all products
     this.props.getProducts(); 

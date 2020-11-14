@@ -48,14 +48,14 @@ constructor(props){
         this.props.deleteItemInCart(productId)
     }
    
-static getDerivedStateFromProps(props, state) {
-    console.log(state);
-    console.log(props)
-        return {
-            cart:props.cart
-        }
+// static getDerivedStateFromProps(props, state) {
+//     console.log(state);
+//     console.log(props)
+//         return {
+//             cart:props.cart
+//         }
     
-  }
+//   }
     createList(){
            const {cart}=this.props
 
@@ -77,7 +77,7 @@ static getDerivedStateFromProps(props, state) {
                             </div>
                         </td>
                         <td>{product.price}</td>
-                        <td >{product.price*product.quantity}</td>
+                        <td >{(product.price*product.quantity).toFixed(3)}</td>
                         <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id)}/></td>
                    </tr>    
          )

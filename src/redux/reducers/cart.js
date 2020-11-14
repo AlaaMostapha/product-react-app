@@ -55,18 +55,18 @@ export default function cartReducer(state=initState,action){
             }
         }
         case actionType.DECREMENT_QUANTITY :{
-            // console.log(action,state)
-            // let price=action.payload.price;
-            let newCart = state.cart.filter(product =>product.id !==action.payload.item)
+           
+            let newCart =state.cart
             action.payload.item.quantity=--action.payload.item.quantity
             if(action.payload.item.quantity===0){
-                newCart.splice(action.payload.item);
+                // newCart.splice(action.payload.item);
+                newCart = state.cart.filter(product =>product.id !==action.payload.item.id)
                 state.itemsNum=state.itemsNum-1;
             }
             console.log(newCart)
             return{
                 ...state,
-                cart:newCart,
+                cart:[...newCart],
             }
         }
         // case actionType.INITALIZE_QUANTITY :{
