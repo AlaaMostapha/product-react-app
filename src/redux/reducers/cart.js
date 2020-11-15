@@ -56,7 +56,7 @@ export default function cartReducer(state=initState,action){
         }
         case actionType.DECREMENT_QUANTITY :{
            
-            let newCart =state.cart
+            let newCart =[...state.cart]
             action.payload.item.quantity=--action.payload.item.quantity
             if(action.payload.item.quantity===0){
                 // newCart.splice(action.payload.item);
