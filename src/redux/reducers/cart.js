@@ -35,12 +35,13 @@ export default function cartReducer(state=initState,action){
         }
         case actionType.DELETE_ITEM_IN_CART :{
             // console.log(action,state)
-            let deletedItemID=action.payload.deletedItemID
+            let deletedItem=action.payload.deletedItem
+            deletedItem.quantity=0;
             return{
                 ...state,
-                deletedItemID,
+                deletedItem,
                 itemsNum:state.itemsNum-1,
-                cart:state.cart.filter(item => item.id !== deletedItemID)
+                cart:state.cart.filter(item => item.id !== deletedItem.id)
                //remove //deletedItem:action.payload.deletedItem //remove from store(state)
             }
         }

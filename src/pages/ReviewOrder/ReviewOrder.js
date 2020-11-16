@@ -40,9 +40,9 @@ constructor(props){
        console.log(cartTotal);
        return cartTotal;
     }
-    removeItemFromCart=(productId)=>{
+    removeItemFromCart=(product)=>{
        this.total=0
-        this.props.deleteItemInCart(productId)
+        this.props.deleteItemInCart(product)
     }
    
 // static getDerivedStateFromProps(props, state) {
@@ -75,7 +75,7 @@ constructor(props){
                         </td>
                         <td>{product.price}</td>
                         <td >{(product.price*product.quantity).toFixed(3)}</td>
-                        <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product.id)}/></td>
+                        <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product)}/></td>
                    </tr>    
          )
        })
@@ -129,7 +129,7 @@ constructor(props){
  
 function mapDispatchToProps(dispatch){
   return{
-   deleteItemInCart: (id)=>dispatch(actions.deleteItemInCart(id))
+   deleteItemInCart: (product)=>dispatch(actions.deleteItemInCart(product))
   }
 } 
 function mapStateToProps(state){

@@ -39,10 +39,10 @@ export const addItemInCart=(item)=>({
     }
 })
 
-export const deleteItemInCart =(itemID)=>({
+export const deleteItemInCart =(item)=>({
     type: actionType.DELETE_ITEM_IN_CART,
     payload :{
-        deletedItemID:itemID
+        deletedItem:item
     }
 })
 

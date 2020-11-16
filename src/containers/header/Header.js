@@ -46,8 +46,8 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const removeItemFromCart=(productId)=>{
-       props.deleteItemInCart(productId)
+  const removeItemFromCart=(product)=>{
+       props.deleteItemInCart(product)
     }
   const reviewPage=()=>{
       history.push('/ReviewOrder'); 
@@ -90,7 +90,7 @@ function Header(props) {
                       <Cart 
                       title={item.title}
                       img={item.image}
-                      onDelete={()=>removeItemFromCart(item.id)}
+                      onDelete={()=>removeItemFromCart(item)}
                       item={item}
                       // onChangeQuantity
                       /> 
@@ -110,7 +110,7 @@ function Header(props) {
 }
 function mapDispatchToProps(dispatch){
   return{
-   deleteItemInCart: (id)=>dispatch(actions.deleteItemInCart(id))
+   deleteItemInCart: (product)=>dispatch(actions.deleteItemInCart(product))
   }
 } 
 function mapStateToProps(state){
