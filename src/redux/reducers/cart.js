@@ -47,21 +47,31 @@ export default function cartReducer(state=initState,action){
         case actionType.INCREMENT_QUANTITY :{
             // console.log(action,state)
             // console.log(action.payload.item)
-            let newCart = state.cart.filter(product =>product.id !==action.payload.item)
-            action.payload.item.quantity=++action.payload.item.quantity
+            
+            let item =action.payload.item
+            let newCart = JSON.parse(JSON.stringify(state.cart))
+            let index = newCart.findIndex(itemx=> itemx.id ===item.id);// find this item in cart
+            item.quantity=++item.quantity //inc it's q
+            newCart.splice(index, 1, item)//replace it with old item
+            console.log('new cart after inc')
+            console.log(newCart)
             return{
                 ...state,
-                cart:newCart
+                cart:[...newCart]
             }
         }
         case actionType.DECREMENT_QUANTITY :{
            
-            let newCart =[...state.cart]
-            action.payload.item.quantity=--action.payload.item.quantity
+            let item =action.payload.item
+            let newCart = JSON.parse(JSON.stringify(state.cart))
+            let index = state.cart.indexOf(item); 
+            item.quantity=--item.quantity
+            
             if(action.payload.item.quantity===0){
-                // newCart.splice(action.payload.item);
-                newCart = state.cart.filter(product =>product.id !==action.payload.item.id)
+                newCart = newCart.filter(product =>product.id !==action.payload.item.id)
                 state.itemsNum=state.itemsNum-1;
+            }else{
+                newCart.splice(index, 1, item)
             }
             console.log(newCart)
             return{

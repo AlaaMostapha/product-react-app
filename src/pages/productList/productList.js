@@ -15,18 +15,36 @@ class ProductList extends Component {
     //when component mount get all products
     this.props.getProducts(); 
   }
+  componentDidUpdate(){
+    console.log('cart from update product list')
+     console.log(this.props.cart)
+     if(this.props.cart){
+      let indexes= this.props.cart.map(cartItem=>{
+        return(
+           this.props.products.findIndex(itemx=>itemx.id ===cartItem.id)
+      //       this.props.products.splice(index,1,this.props.cart[index])
+        )
+       })
+       for(let i=0;i<indexes.length;i++){
+        this.props.products.splice(indexes[i],1,this.props.cart[i])
+       }
+       console.log(indexes)
+     }
+  }
   check=(id)=>{
    //func to send clicked product to product details using id on click
     return   this.props.history.push(`products/${id}`);  
   }
-  addItem=(item,id)=>{
+  addItem=(item)=>{
     //add clicked product to cart
     const{cart,products,showProducts,addItemInCart}=this.props;
     addItemInCart(item);
     //check if this item is in cart & has quantity return it and update products
     const  checkProduct = cart.find(product=>product.id===item.id) //check if it was in cart
+    console.log(checkProduct)
     if(checkProduct){
-      const itemIndexInProducts=this.props.products.indexOf(item); //get it's index from products
+      const itemIndexInProducts=products.findIndex(itemx=> itemx.id ===item.id);
+      console.log(itemIndexInProducts) //get it's index from products
       products[itemIndexInProducts]=checkProduct; //replace it with old one
       if(itemIndexInProducts!==-1){
         showProducts(products) //update
@@ -50,7 +68,7 @@ class ProductList extends Component {
             </Paper>
              <div className="text-center" style={{margin:"5px"}}>
                 {(product.quantity>0)?<Quantity item={product}/>:
-                 <CreateButton color="primary" text="Add to cart" onClick={()=>this.addItem(product,product.id)}/>
+                 <CreateButton color="primary" text="Add to cart" onClick={()=>this.addItem(product)}/>
                 //  <button onClick={(e)=>this.addItem(product,product.id)} style={{margin:"5px"}}>Add to cart</button>
                  }
              </div>
@@ -60,7 +78,7 @@ class ProductList extends Component {
       }
       
   }
-    render() { 
+  render() { 
         const{loading}=this.props
         return (  
            <Container maxWidth="lg" className="ProductListContainer">
@@ -71,7 +89,7 @@ class ProductList extends Component {
                    }
             </Container>
         );
-    }
+  }
 }
 
 function mapDispatchToProps(dispatch){

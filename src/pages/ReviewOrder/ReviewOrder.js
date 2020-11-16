@@ -20,10 +20,7 @@ constructor(props){
         // this.calculatTotalPrice()
         // console.log(this.cartTotal)
     }
-    componentDidUpdate(){
-        console.log("update comp cart")
-        console.log(this.props.cart)
-    }
+    
     // calculatTotalUnitPrice=(item)=>{
     //     this.calculatTotalPrice()
     //     if(item){
@@ -61,7 +58,7 @@ constructor(props){
 
       // console.log(products)
       if(cart) { 
-        return (cart|| []).map((product)=>{
+        return (cart).map((product)=>{
          return(
                    <tr key={product.id}>
                         <td > 
@@ -82,6 +79,8 @@ constructor(props){
                    </tr>    
          )
        })
+      }else{
+        return <div>No items</div>
       }
     }
     redirectToUserForm=()=>{
@@ -106,6 +105,7 @@ constructor(props){
 
                         {/* <Grid container spacing={2} >  */}
                             <tbody>
+                                {console.log(this.createList())}
                                 {this.createList()}
                             </tbody>
                         {/* </Grid> */}
