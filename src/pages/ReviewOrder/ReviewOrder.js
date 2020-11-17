@@ -15,7 +15,9 @@ class ReviewOrder extends Component {
         super(props);
         this.carttotal=0;
     }
-    
+    componentDidMount(){
+        console.log(this.props)
+    }
     calculatTotalPrice(){
         console.log(this.props.cart)
         const cartTotal=this.props.cart.reduce(function(accumlator,product){
@@ -112,7 +114,6 @@ function mapStateToProps(state){
   return{
     cart:state.cartReducer.cart,
     cartLoader:state.cartReducer.cartLoader,
-    quantityValue:state.cartReducer.quantityValue
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(ReviewOrder); 
