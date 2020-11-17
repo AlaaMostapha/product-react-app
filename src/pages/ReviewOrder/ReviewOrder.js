@@ -11,55 +11,29 @@ import  CreateButton from '../../components/Btn/Btn';
 import * as actions from '../../redux/actions/actions';
 class ReviewOrder extends Component {
 //each product display with quantity and delete btn //rest unit price and total price
-constructor(props){
-    super(props);
-    this.carttotal=0;
-
-}
-    componentDidMount(){
-        // this.calculatTotalPrice()
-        // console.log(this.cartTotal)
+    constructor(props){
+        super(props);
+        this.carttotal=0;
     }
     
-    // calculatTotalUnitPrice=(item)=>{
-    //     this.calculatTotalPrice()
-    //     if(item){
-    //         const price = item.price;
-    //         const quantity= item.quantity
-    //         console.log(price*quantity)
-    //         return price*quantity
-    //     }
-        
-    // }
-    //seprated func to calculate total from cart in props
     calculatTotalPrice(){
         console.log(this.props.cart)
-      const cartTotal=this.props.cart.reduce(function(accumlator,product){
+        const cartTotal=this.props.cart.reduce(function(accumlator,product){
             return accumlator + product.price*product.quantity
         },0).toFixed(3);
-       console.log(cartTotal);
-       return cartTotal;
+        console.log(cartTotal);
+        return cartTotal;
     }
     removeItemFromCart=(product)=>{
-       this.total=0
+        this.total=0
         this.props.deleteItemInCart(product)
     }
-   
-// static getDerivedStateFromProps(props, state) {
-//     console.log(state);
-//     console.log(props)
-//         return {
-//             cart:props.cart
-//         }
-    
-//   }
     createList(){
-           const {cart}=this.props
-
-      // console.log(products)
-      if(cart) { 
-        return (cart).map((product)=>{
-         return(
+        const {cart}=this.props
+        if(cart) { 
+            console.log('items in cart')
+            return (cart).map((product)=>{
+                return(
                    <tr key={product.id}>
                         <td > 
                             <div style={{display:"flex",justifyContent:"space-between"}}>
@@ -77,37 +51,37 @@ constructor(props){
                         <td >{(product.price*product.quantity).toFixed(3)}</td>
                         <td> <CreateButton color="secondary" text={ <DeleteIcon />} onClick={()=>this.removeItemFromCart(product)}/></td>
                    </tr>    
-         )
-       })
-      }else{
-        return <div>No items</div>
-      }
+                )
+            })
+        }else{
+            console.log('no items in cart')
+            return (<div>No items</div>)
+        }
     }
     redirectToUserForm=()=>{
         return this.props.history.push(`/OrderNow`); 
     }
-    state = {  }
     render() { 
         const{cartLoader}=this.props
         return (  
              <Container maxWidth="lg" className="ProductListContainer">
-                 <h2 className="text-center">Review Your Order</h2>
+                <h2 className="text-center">Review Your Order</h2>
                 {(cartLoader) ?  <LoadingIndicator/>:
                     <table>
-                         <thead>
+                        <thead>
                             <tr>
                                 <th>item</th>
                                 <th>unit price</th>
                                 <th>total price</th>
                                 <th>Delete</th>
                             </tr>
-                         </thead>
+                        </thead>
 
                         {/* <Grid container spacing={2} >  */}
-                            <tbody>
-                                {console.log(this.createList())}
-                                {this.createList()}
-                            </tbody>
+                        <tbody>
+                            {console.log(this.createList())}
+                            {this.createList()}
+                        </tbody>
                         {/* </Grid> */}
                         <tfoot>
                             <tr>
@@ -117,11 +91,11 @@ constructor(props){
                                 <td></td>
                             </tr>
                         </tfoot>
-                   </table>
+                    </table>
                 }
-               <div style={{textAlign:"center"}}>
+                <div style={{textAlign:"center"}}>
                     <CreateButton color="primary" text="Order Now"  onClick={this.redirectToUserForm}/>
-               </div>
+                </div>
             </Container>
         );
     }

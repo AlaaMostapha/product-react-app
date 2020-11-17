@@ -16,20 +16,21 @@ class ProductList extends Component {
     this.props.getProducts(); 
   }
   componentDidUpdate(){
-    console.log('cart from update product list')
-     console.log(this.props.cart)
-     if(this.props.cart){
-      let indexes= this.props.cart.map(cartItem=>{
+    //if there are items in cart 
+    if(this.props.cart){ 
+      //get there indexes in product list
+      let indexesOfCartItems= this.props.cart.map(cartItem=>{
         return(
-           this.props.products.findIndex(itemx=>itemx.id ===cartItem.id)
-      //       this.props.products.splice(index,1,this.props.cart[index])
+          this.props.products.findIndex(itemx=>itemx.id ===cartItem.id)
         )
-       })
-       for(let i=0;i<indexes.length;i++){
-        this.props.products.splice(indexes[i],1,this.props.cart[i])
-       }
-       console.log(indexes)
-     }
+      })
+      //replace them with items in product list
+      //to get them updated with last quantity applied in cart at the same time
+      for(let i=0;i<indexesOfCartItems.length;i++){
+        this.props.products.splice(indexesOfCartItems[i],1,this.props.cart[i])
+      }
+       console.log(indexesOfCartItems)
+    }
   }
   check=(id)=>{
    //func to send clicked product to product details using id on click
@@ -50,45 +51,43 @@ class ProductList extends Component {
         showProducts(products) //update
       }
     }
-   
   }
   createList=()=>{   
-      const {products}=this.props
-      console.log(products)
-      if(products) { 
-        return (products || []).map((product,index)=>{
-         return(
-           <Grid item xs={3} key={product.id} className="grid-custom" >
-             <Paper key={product.id} onClick={()=>this.check(product.id)} mb="2rem">
-                   <MediaCard key={product.id} title={product.title} 
-                   discription={product.description} 
-                   img={product.image}
-                   alt={product.title}
-                   />
-            </Paper>
-             <div className="text-center" style={{margin:"5px"}}>
-                {(product.quantity>0)?<Quantity item={product}/>:
-                 <CreateButton color="primary" text="Add to cart" onClick={()=>this.addItem(product)}/>
-                //  <button onClick={(e)=>this.addItem(product,product.id)} style={{margin:"5px"}}>Add to cart</button>
-                 }
-             </div>
-            </Grid>
-         )
-       })
-      }
-      
+    const {products}=this.props
+    console.log(products)
+    if(products) { 
+      return (products || []).map((product,index)=>{
+        return(
+          <Grid item xs={3} key={product.id} className="grid-custom" >
+          <Paper key={product.id} onClick={()=>this.check(product.id)} mb="2rem">
+            <MediaCard key={product.id} title={product.title} 
+            discription={product.description} 
+            img={product.image}
+            alt={product.title}
+            />
+          </Paper>
+            <div className="text-center" style={{margin:"5px"}}>
+              {(product.quantity>0)?<Quantity item={product}/>:
+                <CreateButton color="primary" text="Add to cart" onClick={()=>this.addItem(product)}/>
+              //  <button onClick={(e)=>this.addItem(product,product.id)} style={{margin:"5px"}}>Add to cart</button>
+                }
+            </div>
+          </Grid>
+        )
+      })
+    }   
   }
   render() { 
-        const{loading}=this.props
-        return (  
-           <Container maxWidth="lg" className="ProductListContainer">
-                 {(loading) ?  <LoadingIndicator/>:
-                 <Grid container spacing={2} > 
-                 {this.createList()}
-                   </Grid>
-                   }
-            </Container>
-        );
+    const{loading}=this.props
+    return (  
+      <Container maxWidth="lg" className="ProductListContainer">
+        {(loading) ?  <LoadingIndicator/>:
+          <Grid container spacing={2} > 
+            {this.createList()}
+          </Grid>
+        }
+      </Container>
+    );
   }
 }
 
