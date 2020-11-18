@@ -1,16 +1,21 @@
 import './App.scss';
 import { Provider } from 'react-redux';
-import Routes from './Route/index'
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './Route/index';
 import store from './redux/store/index';
 
+import Header from './containers/header/Header';
 
 function App() {
   
   return (
     <Provider store={store}>
-      <div className="App">
-        <Routes />
-      </div>
+      <Router>
+        <div className="App">
+           <Header/>
+          <Routes />
+        </div>
+      </Router>
     </Provider>
   );
 }

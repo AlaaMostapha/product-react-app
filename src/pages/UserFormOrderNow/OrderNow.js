@@ -1,59 +1,64 @@
-import './Order.scss'
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import Container from '@material-ui/core/Container';
-// import TextField from '@material-ui/core/TextField';
+import CreateButton from '../../components/Btn/Btn'
+import './Order.scss';
+import {Formik ,Form} from 'formik';
+import * as Yup from 'yup';
+import FormikControl from '../Form/FormikControl'
 
-
-export default function OrderNow(){
+function OrderNow() {
     const validationSchema =Yup.object().shape({
-        firstName: Yup.string()
-            .required('First Name is required'),
+        address: Yup.string()
+            .required('Adress is required'),
         phoneNumber: Yup.number()
-            .required('Last Name is required'),
+            .required('phonenumber is required'),
         email: Yup.string()
             .email('Email is invalid')
             .required('Email is required'),
     })
     const  initialValues={
-        firstName: '',
+        address: '',
         phoneNumber: '',
         email: '',
     }
-    function submitFrom(){
-        console.log(this.props)
+    const onSubmit = values =>{
+        console.log('form data',values)
     }
-      return (
-          <Container maxWidth="lg" >
+    return (
+        <Container maxWidth="lg" style={{display:'flex',margin:'50px',justifyContent:'center'}}>
             <Formik
-               
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={submitFrom}
-                render={({ errors, status, touched }) => (
-                    <Form>
-                        <div className="form-group">
-                            <label htmlFor="firstName">Address </label>
-                            <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
-                            <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="phoneNumber">Phone number </label>
-                            <Field name="phoneNumber" type="text" className={'form-control' + (errors.phoneNumber && touched.phoneNumber ? ' is-invalid' : '')} />
-                            <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
-                            <ErrorMessage name="email" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-primary mr-2">Submit</button>
-                        </div>
-                    </Form>
-                )}
-            />
-            </Container>
-        )
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            >
+                {
+                    formik=>(
+                        <Form>
+                            <FormikControl
+                                control="input"
+                                label="Address"
+                                name="address"
+                                type="text"
+                            />
+                            <FormikControl
+                                control="input"
+                                label="Phone Number"
+                                name="phoneNumber"
+                                type="text"
+                            />
+                            <FormikControl
+                                control="input"
+                                label="Email"
+                                name="email"
+                                type="email"
+                            />
+                            <CreateButton type="submit" text="submit" disabled={!(formik.dirty && formik.isValid)}/>
+                        </Form>
+                    )
+                }
+            </Formik>
+        </Container>
+    )
 }
+
+export default OrderNow

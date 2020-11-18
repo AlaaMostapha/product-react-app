@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import './productList.scss'
+//material ui components
 import  MediaCard from '../../components/Card/Card';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+//custom components
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import Quantity from '../../components/quantity/quantity';
+import CreateButton from '../../components/Btn/Btn'; 
+//store
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/actions';
-import Quantity from '../../components/quantity/quantity';
-import  CreateButton from '../../components/Btn/Btn'; 
+//history
+import history from '../../Route/history';
 class ProductList extends Component {
   
   componentDidMount(){  
     //when component mount get all products
     this.props.getProducts(); 
+    console.log(history)
   }
   componentDidUpdate(){
     //if there are items in cart 
@@ -32,10 +38,10 @@ class ProductList extends Component {
        console.log(indexesOfCartItems)
     }
   }
-  check=(id)=>{
-   //func to send clicked product to product details using id on click
-    return   this.props.history.push(`products/${id}`);  
-  }
+  // check=(id)=>{
+  //  //func to send clicked product to product details using id on click
+  //   return   this.props.history.push(`/products/${id}`);  
+  // }
   addItem=(item)=>{
     //add clicked product to cart
     const{cart,products,showProducts,addItemInCart}=this.props;
@@ -59,7 +65,7 @@ class ProductList extends Component {
       return (products || []).map((product,index)=>{
         return(
           <Grid item xs={3} key={product.id} className="grid-custom" >
-          <Paper key={product.id} onClick={()=>this.check(product.id)} mb="2rem">
+          <Paper key={product.id} onClick={()=>history.push(`/products/${product.id}`,product)} mb="2rem">
             <MediaCard key={product.id} title={product.title} 
             discription={product.description} 
             img={product.image}
