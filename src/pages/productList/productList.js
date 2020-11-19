@@ -5,6 +5,8 @@ import  MediaCard from '../../components/Card/Card';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+
+// import { ToastContainer } from 'react-toastify';
 //custom components
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import Quantity from '../../components/quantity/quantity';
@@ -87,6 +89,7 @@ class ProductList extends Component {
     const{loading}=this.props
     return (  
       <Container maxWidth="lg" className="ProductListContainer">
+        {/* <ToastContainer limit={1}/> */}
         {(loading) ?  <LoadingIndicator/>:
           <Grid container spacing={2} > 
             {this.createList()}
