@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Handlers from './handlers/index'
+import * as Handlers from './handlers/products'
 
 const axiosInstance = axios.create({
     baseURL:"https://fakestoreapi.com/"
