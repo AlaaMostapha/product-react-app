@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Router,
   Switch,
@@ -9,7 +9,7 @@ import ProductList from '../pages/productList/productList'
 import ProductDetails from '../pages/productDetails/productDetails';
 import ReviewOrder from '../pages/ReviewOrder/ReviewOrder';
 import OrderNow from '../pages/UserFormOrderNow/OrderNow';
-
+import LoginForm from '../pages/Login/LoginForm';
 export default function Routes({location}) {
  
         return (
@@ -20,6 +20,7 @@ export default function Routes({location}) {
                     <Route  path="/products/:productId" component={ProductDetails}/>
                     <Route   path="/ReviewOrder" component={ReviewOrder}/>
                     <Route   path="/OrderNow" component={OrderNow}/>
+                    <Route   path="/login" component={LoginForm}/>
                 </Switch>
             </Router>
         )
