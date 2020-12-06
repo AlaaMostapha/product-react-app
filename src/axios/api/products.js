@@ -1,8 +1,5 @@
-import axiosInstance from '../products';
+import axiosInstance from "../BaseUrl";
 
-const products ="products";
-
-export const getProductsFromApi = async() =>{
-   return await axiosInstance.get(products)
-}
-
+export const getProductsFromApi = async () => {
+  return await axiosInstance.get("products");
+};
