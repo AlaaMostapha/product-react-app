@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/login';
 import history from '../../Route/history';
 
+import {Link} from 'react-router-dom';
 // import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 
 
@@ -61,6 +62,7 @@ function LoginForm(props) {
                         <div style={{textAlign:"center"}}>
                             <CreateButton color="primary" text="Login" type="submit" disabled={!(formik.dirty && formik.isValid)}/>
                         </div>
+                        <div>If you didn't have an account<Link to="/register">Register</Link></div>
                     </Form> 
                 )}
             </Formik>

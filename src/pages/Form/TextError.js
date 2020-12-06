@@ -1,6 +1,6 @@
 import React from 'react'
 
-function textError(props) {
+function TextError(props) {
     return (
         <div class="error">
             {console.log(props)}
@@ -9,4 +9,4 @@ function textError(props) {
     )
 }
 
-export default textError
+export default TextError
