@@ -1,20 +1,20 @@
 import React from "react";
 import "./Header.scss";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  MenuItem,
+  Badge,
+} from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
 import FadeMenu from "../../components/Menu/Menu";
-import Menu from "@material-ui/core/Menu";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Cart from "../Cart/Cart";
-import Badge from "@material-ui/core/Badge";
 import CreateButton from "../../components/Btn/Btn";
 import history from "../../Route/history";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -30,23 +30,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header(props) {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const cart = useSelector((state) => state.cartReducer.cart);
+  const itemsNum = useSelector((state) => state.cartReducer.itemsNum);
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const removeItemFromCart = (product) => {
-    props.deleteItemInCart(product);
+    dispatch(actions.deleteItemInCart(product));
   };
   const reviewPage = () => {
     history.push("/ReviewOrder");
   };
+  const profileItems = ["View/ Edit Profile", "Sign out"];
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -60,73 +55,52 @@ function Header(props) {
               Products
             </Link>
           </Typography>
+
           <FadeMenu
-            iconType={AccountCircle}
-            items={["View/ Edit Profile", "Sign out"]}
-            ariaLabel={"account of current user"}
+            aria-label="profile"
+            iconType={<AccountCircle />}
+            id="profile"
+            items={profileItems.map((item, index) => (
+              <MenuItem key={index}>{item}</MenuItem>
+            ))}
           />
-          <IconButton
+
+          <FadeMenu
             aria-label="add to shopping cart"
-            onClick={handleMenu}
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-          >
-            <Badge badgeContent={props.itemsNum} color="secondary">
-              <AddShoppingCartIcon style={{ color: "white" }} />
-            </Badge>
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            getContentAnchorEl={null}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            open={open}
-            onClose={handleClose}
-          >
-            {/* <MenuItem onClick={handleClose}>X</MenuItem> */}
-            {(props.cart || []).slice(0, 3).map((item) => {
+            iconType={
+              <Badge badgeContent={itemsNum} color="secondary">
+                <AddShoppingCartIcon style={{ color: "white" }} />
+              </Badge>
+            }
+            id="cart"
+            items={(cart || []).slice(0, 3).map((item, index) => {
               return (
-                <MenuItem key={item.id}>
-                  <Cart
-                    title={item.title}
-                    img={item.image}
-                    onDelete={() => removeItemFromCart(item)}
-                    item={item}
-                  />
-                </MenuItem>
+                <>
+                  <MenuItem key={item.id}>
+                    <Cart
+                      title={item.title}
+                      img={item.image}
+                      onDelete={() => removeItemFromCart(item)}
+                      item={item}
+                    />
+                  </MenuItem>
+                  {index === cart.length - 1 && (
+                    <MenuItem style={{ justifyContent: "center" }}>
+                      <CreateButton
+                        color="primary"
+                        text="Review Order"
+                        onClick={reviewPage}
+                      />
+                    </MenuItem>
+                  )}
+                </>
               );
             })}
-            <MenuItem style={{ justifyContent: "center" }}>
-              <CreateButton
-                color="primary"
-                text="Review Order"
-                onClick={reviewPage}
-              />
-            </MenuItem>
-          </Menu>
+          />
         </Toolbar>
       </AppBar>
     </div>
   );
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    deleteItemInCart: (product) => dispatch(actions.deleteItemInCart(product)),
-  };
-}
-function mapStateToProps(state) {
-  return {
-    cart: state.cartReducer.cart,
-    cartLoader: state.cartReducer.cartLoader,
-    itemsNum: state.cartReducer.itemsNum,
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export default Header;
