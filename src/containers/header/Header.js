@@ -55,7 +55,11 @@ function Header(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+            <Link
+              to="/"
+              style={{ color: "white", textDecoration: "none" }}
+              onClick={() => history.push("/")}
+            >
               Products
             </Link>
           </Typography>
