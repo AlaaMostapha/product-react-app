@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import CreateButton from "../../components/Btn/Btn";
-import "./Order.scss";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../Form/FormikControl";

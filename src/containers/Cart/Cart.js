@@ -1,6 +1,4 @@
-import "./Cart.scss";
 import MediaControlCard from "../../components/MediaControlCard/MediaControlCard";
-
 import React, { Component } from "react";
 import CreateButton from "../../components/Btn/Btn";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -13,7 +11,6 @@ class Cart extends Component {
 
     return (
       <React.Fragment>
-        {/* {console.log(item)} */}
         <MediaControlCard
           className="carte"
           title={title}

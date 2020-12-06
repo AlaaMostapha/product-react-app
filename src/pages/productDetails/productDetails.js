@@ -1,74 +1,81 @@
-import React, { Component } from 'react';
-import './productDetails.scss';
-import  CreateButton from '../../components/Btn/Btn';
-import Container from '@material-ui/core/Container';
-import {connect} from 'react-redux';
-import * as actions from '../../redux/actions/actions';
-import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import Quantity from '../../components/quantity/quantity';
+import React, { Component } from "react";
+import CreateButton from "../../components/Btn/Btn";
+import Container from "@material-ui/core/Container";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions/actions";
+import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
+import Quantity from "../../components/quantity/quantity";
 class ProductDetails extends Component {
-  componentDidUpdate(){
-    const{cart,singleProduct}=this.props
+  componentDidUpdate() {
+    const { cart, singleProduct } = this.props;
     //check if this item is in cart return it from cart with it's quantity
-    const  product = cart.find(product=>product.id===singleProduct.id)
-    if(product){
-        console.log('cart has this item')
-        this.props.showSingleProduct(product)
-    }else{
-        this.props.showSingleProduct(singleProduct)
+    const product = cart.find((product) => product.id === singleProduct.id);
+    if (product) {
+      this.props.showSingleProduct(product);
+    } else {
+      this.props.showSingleProduct(singleProduct);
     }
-    console.log(singleProduct)
   }
-  componentDidMount(){  
-    const {productId}=this.props.match.params
+  componentDidMount() {
+    const { productId } = this.props.match.params;
     // request item from api
-    this.props.getSingleProduct(productId)
+    this.props.getSingleProduct(productId);
   }
 
-  addItem=(singleProduct)=>{
+  addItem = (singleProduct) => {
     //add item to cart
-    console.log(this.props.addItemInCart(singleProduct))
-  }
-  render() { 
-    const{singleProduct}=this.props;
-    return (  
-       <Container maxWidth="lg">
-        {(singleProduct)?
-          <div style={{display:"flex",textAlign:"left"}}>
-            <img src={singleProduct.image} alt={singleProduct.alt} style={{height:"250px",margin:"10px"}}/>
+    this.props.addItemInCart(singleProduct);
+  };
+  render() {
+    const { singleProduct } = this.props;
+    return (
+      <Container maxWidth="lg">
+        {singleProduct ? (
+          <div style={{ display: "flex", textAlign: "left" }}>
+            <img
+              src={singleProduct.image}
+              alt={singleProduct.alt}
+              style={{ height: "250px", margin: "10px" }}
+            />
             <div>
               <h3>{singleProduct.title}</h3>
               <h4>Description:</h4>
               <p>{singleProduct.description}</p>
-             <div>
-                <h4>Price:</h4><p>{singleProduct.price}</p>
-             </div>
-              {/* <CreateButton color="primary" text="Add to cart" href="#"/> */}
-              {/* {console.log(singleProduct.quantity)} */}
-              {(singleProduct.quantity)?<Quantity item={singleProduct}/>:
-              <CreateButton color="primary" text="Add to cart"onClick={()=>this.addItem(singleProduct)}/>
-              }
+              <div>
+                <h4>Price:</h4>
+                <p>{singleProduct.price}</p>
+              </div>
+              {singleProduct.quantity ? (
+                <Quantity item={singleProduct} />
+              ) : (
+                <CreateButton
+                  color="primary"
+                  text="Add to cart"
+                  onClick={() => this.addItem(singleProduct)}
+                />
+              )}
             </div>
           </div>
-          :<LoadingIndicator/>}
-     </Container>
+        ) : (
+          <LoadingIndicator />
+        )}
+      </Container>
     );
   }
 }
 
 // export default productDetails;
-function mapStateToProps(state){
-  console.log(state)
-  return{
-    singleProduct:state.singleProductReducer.singleProduct,
-    cart:state.cartReducer.cart,
-  }
+function mapStateToProps(state) {
+  return {
+    singleProduct: state.singleProductReducer.singleProduct,
+    cart: state.cartReducer.cart,
+  };
 }
-function mapDispatchToProps(dispatch){
-  return{
-    getSingleProduct :(id)=>dispatch(actions.getSingleProduct(id)),
-    addItemInCart :(item)=>dispatch(actions.addItemInCart(item)),
-    showSingleProduct: (item)=>dispatch(actions.showSingleProduct(item))
-  }
-} 
-export default connect(mapStateToProps,mapDispatchToProps)(ProductDetails); 
+function mapDispatchToProps(dispatch) {
+  return {
+    getSingleProduct: (id) => dispatch(actions.getSingleProduct(id)),
+    addItemInCart: (item) => dispatch(actions.addItemInCart(item)),
+    showSingleProduct: (item) => dispatch(actions.showSingleProduct(item)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

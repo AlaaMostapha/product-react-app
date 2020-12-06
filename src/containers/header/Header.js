@@ -5,7 +5,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-// import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import FadeMenu from "../../components/Menu/Menu";
@@ -36,8 +35,6 @@ function Header(props) {
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
-    // console.log(event)
-    // console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   };
 
@@ -103,9 +100,7 @@ function Header(props) {
                     img={item.image}
                     onDelete={() => removeItemFromCart(item)}
                     item={item}
-                    // onChangeQuantity
                   />
-                  {/* {console.log(item.quantity)} */}
                 </MenuItem>
               );
             })}
@@ -128,8 +123,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
-  // console.log(state)
-  //  console.log(state.productsReducer)
   return {
     cart: state.cartReducer.cart,
     cartLoader: state.cartReducer.cartLoader,
