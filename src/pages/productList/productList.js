@@ -25,7 +25,6 @@ function ProductList() {
     dispatch(productsActions.getProducts());
   }, []);
   useEffect(() => {
-    console.log(history);
     //if there are items in cart
     if (cart) {
       //get there indexes in product list
@@ -37,7 +36,6 @@ function ProductList() {
       for (let i = 0; i < indexesOfCartItems.length; i++) {
         products.splice(indexesOfCartItems[i], 1, cart[i]);
       }
-      console.log(indexesOfCartItems);
     }
   }, [products, cart]);
   const addItem = (item) => {
@@ -45,12 +43,11 @@ function ProductList() {
     dispatch(cartActions.addItemInCart(item));
     //check if this item is in cart & has quantity return it and update products
     const checkProduct = cart.find((product) => product.id === item.id); //check if it was in cart
-    console.log(checkProduct);
     if (checkProduct) {
       const itemIndexInProducts = products.findIndex(
         (itemx) => itemx.id === item.id
       );
-      console.log(itemIndexInProducts); //get it's index from products
+      //get it's index from products
       products[itemIndexInProducts] = checkProduct; //replace it with old one
       if (itemIndexInProducts !== -1) {
         dispatch(productsActions.showProducts(products)); //update

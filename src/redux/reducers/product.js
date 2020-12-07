@@ -4,7 +4,6 @@ import * as actionType from "../constants/actionTypes";
 export default function singleProductReducer(state = {}, action) {
   switch (action.type) {
     case actionType.PREQUEST_SINGLLE_PRODUCT: {
-      console.log(action, state);
       return {
         ...state,
         singleProductloader: true,
@@ -12,7 +11,6 @@ export default function singleProductReducer(state = {}, action) {
       };
     }
     case actionType.GET_SINGLLE_PRODUCT: {
-      console.log(action, state);
       return {
         singleProductloader: false,
         singleProduct: action.payload.singleProduct,

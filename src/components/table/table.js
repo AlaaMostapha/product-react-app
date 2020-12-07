@@ -19,7 +19,6 @@ const useStyles = makeStyles({
 
 export default function BasicTable(props) {
   const { tableHeadings, arrayItems } = props;
-  console.log(props);
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>

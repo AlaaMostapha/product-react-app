@@ -26,6 +26,11 @@ function Quantity(props) {
     dispatch(cartActions.incrementQuantity(item));
     setinputValue(item.quantity);
   };
+  const handleChange = (event) => {
+    // console.log(props)
+    // setinputValue(event.target.value);
+    //   console.log(onChangeQuantity(inputValue))
+  };
   return (
     <div className="quantity">
       <div
@@ -36,7 +41,13 @@ function Quantity(props) {
       >
         -
       </div>
-      <input type="number" id="number" value={inputValue} ref={inputRef} />
+      <input
+        type="number"
+        id="number"
+        value={inputValue}
+        ref={inputRef}
+        onChange={handleChange}
+      />
       <div
         className="value-button"
         id="increase"

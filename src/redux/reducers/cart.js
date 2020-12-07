@@ -66,7 +66,6 @@ export default function cartReducer(state = initState, action) {
       } else {
         newCart.splice(index, 1, item); //else dec it's quantity
       }
-      console.log(newCart);
       return {
         ...state,
         cart: [...newCart],

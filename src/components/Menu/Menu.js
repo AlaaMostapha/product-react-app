@@ -5,7 +5,6 @@ import IconButton from "@material-ui/core/IconButton";
 
 export default function FadeMenu(props) {
   const { id, iconType, ...rest } = props;
-  console.log(props);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
