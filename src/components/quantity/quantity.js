@@ -11,7 +11,6 @@ function Quantity(props) {
   const [inputValue, setinputValue] = useState(item.quantity);
   useEffect(() => {
     setinputValue(item.quantity);
-    console.log(item.quantity);
   }, [item.quantity]);
 
   const decreaseValue = () => {
@@ -24,7 +23,7 @@ function Quantity(props) {
   };
 
   const increaseValue = () => {
-    console.log(dispatch(cartActions.incrementQuantity(item)));
+    dispatch(cartActions.incrementQuantity(item));
     setinputValue(item.quantity);
   };
   return (

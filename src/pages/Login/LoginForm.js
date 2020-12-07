@@ -4,7 +4,6 @@ import CreateButton from "../../components/Btn/Btn";
 import FormikControl from "../Form/FormikControl";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-// import { useDispatch , useSelector} from "react-redux";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/login";
 import history from "../../Route/history";
@@ -15,7 +14,7 @@ function LoginForm(props) {
   useEffect(() => {
     //get users from Api
     props.requestUsersFromApi();
-  }, []);
+  });
   const initialValues = {
     email: "",
     password: "",
