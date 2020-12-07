@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.scss";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./style";
+//material ui
 import {
   AppBar,
   Toolbar,
@@ -9,39 +10,32 @@ import {
   Badge,
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import FadeMenu from "../../components/Menu/Menu";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import FadeMenu from "../../components/Menu/Menu";
+//custom components
 import Cart from "../Cart/Cart";
 import CreateButton from "../../components/Btn/Btn";
+//route
 import history from "../../Route/history";
+//actions
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../redux/actions/actions";
+import * as cartActions from "../../redux/actions/cart";
 import { Link } from "react-router-dom";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 function Header(props) {
-  const dispatch = useDispatch();
   const classes = useStyles();
+  //actions hooks
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartReducer.cart);
   const itemsNum = useSelector((state) => state.cartReducer.itemsNum);
 
-  const removeItemFromCart = (product) => {
-    dispatch(actions.deleteItemInCart(product));
+  const removeItemFromCart = (item) => {
+    dispatch(cartActions.deleteItemInCart(item));
   };
-  const reviewPage = () => {
+  const redirectToReviewPage = () => {
     history.push("/ReviewOrder");
   };
-  const profileItems = ["View/ Edit Profile", "Sign out"];
+  const profileDropDownItems = ["View/ Edit Profile", "Sign out"];
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -60,7 +54,7 @@ function Header(props) {
             aria-label="profile"
             iconType={<AccountCircle />}
             id="profile"
-            items={profileItems.map((item, index) => (
+            items={profileDropDownItems.map((item, index) => (
               <MenuItem key={index}>{item}</MenuItem>
             ))}
           />
@@ -89,7 +83,7 @@ function Header(props) {
                       <CreateButton
                         color="primary"
                         text="Review Order"
-                        onClick={reviewPage}
+                        onClick={redirectToReviewPage}
                       />
                     </MenuItem>
                   )}
