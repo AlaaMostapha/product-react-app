@@ -1,15 +1,13 @@
-import { call ,put} from 'redux-saga/effects';
-import {getSingleProductFromApi} from '../../axios/api/product';
-import  {showSingleProduct} from '../actions/actions';
+import { call, put } from "redux-saga/effects";
+import { getSingleProductFromApi } from "../../network/api/product";
+import { showSingleProduct } from "../actions/product";
 
 function* handlGetSingleProduct(action) {
-    const response=yield call(getSingleProductFromApi,action.payload.singleProductId);
-    // console.log("saga response")
-    // console.log(response.data);
-    // console.log(response.data);
-    yield put(showSingleProduct(response.data))
+  const response = yield call(
+    getSingleProductFromApi,
+    action.payload.singleProductId
+  );
+  yield put(showSingleProduct(response.data));
 }
- 
-export {
-  handlGetSingleProduct,
-};
+
+export { handlGetSingleProduct };
