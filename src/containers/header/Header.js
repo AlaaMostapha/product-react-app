@@ -78,7 +78,7 @@ function Header(props) {
                       item={item}
                     />
                   </MenuItem>
-                  {index === cart.length - 1 && (
+                  {index === (cart || []).slice(0, 3).length - 1 && (
                     <MenuItem style={{ justifyContent: "center" }}>
                       <CreateButton
                         color="primary"
