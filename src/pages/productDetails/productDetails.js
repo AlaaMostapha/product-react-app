@@ -16,6 +16,8 @@ function ProductDetails(props) {
     const { productId } = props.match.params;
     // request item from api
     dispatch(productActions.getSingleProduct(productId));
+  }, []);
+  useEffect(() => {
     //check if this item is in cart return it from cart with it's quantity
     const product = cart.find((product) => product.id === singleProduct.id);
     if (product) {
@@ -23,7 +25,7 @@ function ProductDetails(props) {
     } else {
       dispatch(productActions.showSingleProduct(singleProduct));
     }
-  });
+  }, [cart]);
 
   const addItem = (singleProduct) => {
     //add item to cart
