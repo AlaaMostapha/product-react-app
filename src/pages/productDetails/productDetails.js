@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import CreateButton from "../../components/Btn/Btn";
 import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
-import * as actions from "../../redux/actions/actions";
+import * as productActions from "../../redux/actions/product";
+import * as cartActions from "../../redux/actions/cart";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import Quantity from "../../components/quantity/quantity";
 class ProductDetails extends Component {
@@ -73,9 +74,10 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    getSingleProduct: (id) => dispatch(actions.getSingleProduct(id)),
-    addItemInCart: (item) => dispatch(actions.addItemInCart(item)),
-    showSingleProduct: (item) => dispatch(actions.showSingleProduct(item)),
+    getSingleProduct: (id) => dispatch(productActions.getSingleProduct(id)),
+    addItemInCart: (item) => dispatch(cartActions.addItemInCart(item)),
+    showSingleProduct: (item) =>
+      dispatch(productActions.showSingleProduct(item)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

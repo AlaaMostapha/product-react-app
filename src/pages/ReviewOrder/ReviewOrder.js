@@ -6,9 +6,9 @@ import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator
 import DeleteIcon from "@material-ui/icons/Delete";
 import Quantity from "../../components/quantity/quantity";
 import CreateButton from "../../components/Btn/Btn";
-import * as actions from "../../redux/actions/actions";
+import * as cartActions from "../../redux/actions/cart";
 import BasicTable from "../../components/table/table";
-import { TableFooter, TableCell, TableRow } from "@material-ui/core";
+import { TableCell, TableRow } from "@material-ui/core";
 class ReviewOrder extends Component {
   //each product display with quantity and delete btn //rest unit price and total price
   constructor(props) {
@@ -154,7 +154,8 @@ class ReviewOrder extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteItemInCart: (product) => dispatch(actions.deleteItemInCart(product)),
+    deleteItemInCart: (product) =>
+      dispatch(cartActions.deleteItemInCart(product)),
   };
 }
 function mapStateToProps(state) {
