@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import "./productList.scss";
 //material ui components
 import MediaCard from "../../components/Card/Card";
@@ -10,42 +10,39 @@ import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator
 import Quantity from "../../components/quantity/quantity";
 import CreateButton from "../../components/Btn/Btn";
 //store
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as productsActions from "../../redux/actions/actions";
 import * as cartActions from "../../redux/actions/cart";
 //history
 import history from "../../Route/history";
-class ProductList extends Component {
-  componentDidMount() {
+function ProductList() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cartReducer.cart);
+  const products = useSelector((state) => state.productsReducer.products);
+  const loading = useSelector((state) => state.productsReducer.loader);
+  useEffect(() => {
     //when component mount get all products
-    this.props.getProducts();
+    dispatch(productsActions.getProducts());
+  }, []);
+  useEffect(() => {
     console.log(history);
-  }
-  componentDidUpdate() {
     //if there are items in cart
-    if (this.props.cart) {
+    if (cart) {
       //get there indexes in product list
-      let indexesOfCartItems = this.props.cart.map((cartItem) => {
-        return this.props.products.findIndex(
-          (itemx) => itemx.id === cartItem.id
-        );
+      let indexesOfCartItems = cart.map((cartItem) => {
+        return products.findIndex((itemx) => itemx.id === cartItem.id);
       });
       //replace them with items in product list
       //to get them updated with last quantity applied in cart at the same time
       for (let i = 0; i < indexesOfCartItems.length; i++) {
-        this.props.products.splice(
-          indexesOfCartItems[i],
-          1,
-          this.props.cart[i]
-        );
+        products.splice(indexesOfCartItems[i], 1, cart[i]);
       }
       console.log(indexesOfCartItems);
     }
-  }
-  addItem = (item) => {
+  }, [products, cart]);
+  const addItem = (item) => {
     //add clicked product to cart
-    const { cart, products, showProducts, addItemInCart } = this.props;
-    addItemInCart(item);
+    dispatch(cartActions.addItemInCart(item));
     //check if this item is in cart & has quantity return it and update products
     const checkProduct = cart.find((product) => product.id === item.id); //check if it was in cart
     console.log(checkProduct);
@@ -56,13 +53,11 @@ class ProductList extends Component {
       console.log(itemIndexInProducts); //get it's index from products
       products[itemIndexInProducts] = checkProduct; //replace it with old one
       if (itemIndexInProducts !== -1) {
-        showProducts(products); //update
+        dispatch(productsActions.showProducts(products)); //update
       }
     }
   };
-  createList = () => {
-    const { products } = this.props;
-    console.log(products);
+  const createList = () => {
     if (products) {
       return (products || []).map((product, index) => {
         return (
@@ -87,7 +82,7 @@ class ProductList extends Component {
                 <CreateButton
                   color="primary"
                   text="Add to cart"
-                  onClick={() => this.addItem(product)}
+                  onClick={() => addItem(product)}
                 />
               )}
             </div>
@@ -96,36 +91,17 @@ class ProductList extends Component {
       });
     }
   };
-  render() {
-    const { loading } = this.props;
-    return (
-      <Container maxWidth="lg" className="ProductListContainer">
-        {loading ? (
-          <LoadingIndicator />
-        ) : (
-          <Grid container spacing={2}>
-            {this.createList()}
-          </Grid>
-        )}
-      </Container>
-    );
-  }
+  return (
+    <Container maxWidth="lg" className="ProductListContainer">
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <Grid container spacing={2}>
+          {createList()}
+        </Grid>
+      )}
+    </Container>
+  );
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getProducts: () => dispatch(productsActions.getProducts()),
-    addItemInCart: (item) => dispatch(cartActions.addItemInCart(item)),
-    showProducts: (products) =>
-      dispatch(productsActions.showProducts(products)),
-  };
-}
-function mapStateToProps(state) {
-  return {
-    products: state.productsReducer.products,
-    loading: state.productsReducer.loader,
-    cartLoader: state.cartReducer.cartLoader,
-    cart: state.cartReducer.cart,
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default ProductList;
