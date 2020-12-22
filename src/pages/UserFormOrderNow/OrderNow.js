@@ -24,7 +24,6 @@ function OrderNow() {
       maxWidth="lg"
       style={{ display: "flex", margin: "50px", justifyContent: "center" }}
     >
-      <Link to="/">Products</Link>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
