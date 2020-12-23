@@ -1,4 +1,4 @@
-import "./quantity.scss";
+// import "./quantity.scss";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as cartActions from "../../redux/actions/cart";
