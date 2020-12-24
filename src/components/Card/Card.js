@@ -1,5 +1,5 @@
 import React from "react";
-// import "./Card.scss";
+import "./Card.module.scss";
 import { useStyles } from "./style";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";

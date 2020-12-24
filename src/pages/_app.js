@@ -1,7 +1,16 @@
-// import { store } from "../redux/store/index";
+import { Provider } from "react-redux";
+import App from "next/app";
 
-// function App({ Component, pageProps }) {
-//   return <Component {...pageProps} />;
-// }
-
-// export default store.withRedux(App);
+import { wrapper } from "../redux/store";
+import "../styles/styles.global.scss";
+class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
+      // <Provider store={store}>
+      <Component {...pageProps} />
+      // </Provider>
+    );
+  }
+}
+export default wrapper.withRedux(MyApp);

@@ -1,4 +1,4 @@
-import "./ReviewOrder.scss";
+import "./ReviewOrder.module.scss";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "@material-ui/core/Container";
@@ -9,7 +9,9 @@ import CreateButton from "../../components/Btn/Btn";
 import * as cartActions from "../../redux/actions/cart";
 import BasicTable from "../../components/table/table";
 import { TableCell, TableRow } from "@material-ui/core";
+import { useRouter } from "next/router";
 function ReviewOrder(props) {
+  const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartReducer.cart);
   const cartLoader = useSelector((state) => state.cartReducer.cartLoader);
@@ -29,7 +31,7 @@ function ReviewOrder(props) {
     dispatch(cartActions.deleteItemInCart(product));
   };
   const redirectToUserForm = () => {
-    return props.history.push(`/OrderNow`);
+    return router.push(`/UserFormOrderNow/OrderNow`);
   };
   const tableHeadings = ["Item", "Unit Price", "Total Price", "Delete"];
 
@@ -40,10 +42,11 @@ function ReviewOrder(props) {
         <LoadingIndicator />
       ) : (
         <BasicTable
+          className="basicTable"
           tableHeadings={tableHeadings}
           arrayItems={cart.map((product, index) => (
             <>
-              <TableRow key={product.name}>
+              <TableRow key={index}>
                 <TableCell component="th" scope="row" display="flex">
                   <div
                     style={{
@@ -99,5 +102,4 @@ function ReviewOrder(props) {
     </Container>
   );
 }
-
 export default ReviewOrder;

@@ -4,7 +4,6 @@ import CreateButton from "../../components/Btn/Btn";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../Form/FormikControl";
-import { Link } from "react-router-dom";
 function OrderNow() {
   const validationSchema = Yup.object().shape({
     address: Yup.string().required("Adress is required"),

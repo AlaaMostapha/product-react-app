@@ -1,0 +1,16 @@
+.basicTable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+}
+
+.reviewPageImg{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}

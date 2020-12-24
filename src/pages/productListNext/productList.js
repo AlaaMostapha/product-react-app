@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { Provider } from "react-redux";
-import store from "../../redux/store/index";
-// import "./productList.scss";
+import "./productList.module.scss";
 //material ui components
 import MediaCard from "../../components/Card/Card";
 import Container from "@material-ui/core/Container";
@@ -11,13 +9,15 @@ import Paper from "@material-ui/core/Paper";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import Quantity from "../../components/quantity/quantity";
 import CreateButton from "../../components/Btn/Btn";
+import Header from "../../containers/headerNext/Header";
 //store
 import { useDispatch, useSelector } from "react-redux";
 import * as productsActions from "../../redux/actions/actions";
 import * as cartActions from "../../redux/actions/cart";
 //history
-import Link from "next/link";
+import { useRouter } from "next/router";
 function ProductList() {
+  const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartReducer.cart);
   const products = useSelector((state) => state.productsReducer.products);
@@ -58,30 +58,49 @@ function ProductList() {
   };
   const createList = () => {
     if (products) {
-      Object.entries(products).map((product, index) => {
+      return (products || []).map((product, index) => {
         return (
-          <li key={index}>
-            <Link href="/products/[product.id]" as={"/product/"}>
-              <a>{product.title}</a>
-              <p>{product.description}</p>
-            </Link>
-          </li>
+          <Grid item xs={3} key={product.id} className="grid-custom">
+            <Paper
+              key={product.id}
+              onClick={() => router.push(`/productDetailsNext/${product.id}`)}
+              mb="2rem"
+            >
+              <MediaCard
+                key={product.id}
+                title={product.title}
+                discription={product.description}
+                img={product.image}
+                alt={product.title}
+              />
+            </Paper>
+            <div className="text-center" style={{ margin: "5px" }}>
+              {product.quantity > 0 ? (
+                <Quantity item={product} />
+              ) : (
+                <CreateButton
+                  color="primary"
+                  text="Add to cart"
+                  onClick={() => addItem(product)}
+                />
+              )}
+            </div>
+          </Grid>
         );
       });
     }
   };
   return (
-    <Provider store={store}>
-      <Container maxWidth="lg" className="ProductListContainer">
-        {loading ? (
-          <LoadingIndicator />
-        ) : (
-          <Grid container spacing={2}>
-            {createList()}
-          </Grid>
-        )}
-      </Container>
-    </Provider>
+    <Container maxWidth="lg" className="ProductListContainer">
+      <Header />
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <Grid container spacing={2}>
+          {createList()}
+        </Grid>
+      )}
+    </Container>
   );
 }
 
