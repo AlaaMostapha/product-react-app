@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/css/main.e094fd7a.chunk.css",
+    "main.js": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/main.218858b0.chunk.js",
+    "main.js.map": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/main.218858b0.chunk.js.map",
+    "runtime-main.js": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/runtime-main.a1e7bcba.js",
+    "runtime-main.js.map": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/runtime-main.a1e7bcba.js.map",
+    "static/css/2.95456d05.chunk.css": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/css/2.95456d05.chunk.css",
+    "static/js/2.a2358ba6.chunk.js": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/2.a2358ba6.chunk.js",
+    "static/js/2.a2358ba6.chunk.js.map": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/2.a2358ba6.chunk.js.map",
+    "static/js/3.2cb5d93e.chunk.js": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/3.2cb5d93e.chunk.js",
+    "static/js/3.2cb5d93e.chunk.js.map": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/3.2cb5d93e.chunk.js.map",
+    "index.html": "/AlaaMostapha/product-react-app/tree/checkout-issue/index.html",
+    "static/css/2.95456d05.chunk.css.map": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/css/2.95456d05.chunk.css.map",
+    "static/css/main.e094fd7a.chunk.css.map": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/css/main.e094fd7a.chunk.css.map",
+    "static/js/2.a2358ba6.chunk.js.LICENSE.txt": "/AlaaMostapha/product-react-app/tree/checkout-issue/static/js/2.a2358ba6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a1e7bcba.js",
+    "static/css/2.95456d05.chunk.css",
+    "static/js/2.a2358ba6.chunk.js",
+    "static/css/main.e094fd7a.chunk.css",
+    "static/js/main.218858b0.chunk.js"
+  ]
+}
