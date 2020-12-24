@@ -1,4 +1,4 @@
-// import "./quantity.scss";
+import styles from "./quantity.module.scss";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as cartActions from "../../redux/actions/cart";
@@ -32,10 +32,10 @@ function Quantity(props) {
     //   console.log(onChangeQuantity(inputValue))
   };
   return (
-    <div className="quantity">
+    <div className={styles.quantity}>
       <div
-        className="value-button"
-        id="decrease"
+        className={styles.valueButton}
+        id={styles.decrease}
         onClick={decreaseValue}
         value="Decrease Value"
       >
@@ -47,10 +47,11 @@ function Quantity(props) {
         value={inputValue}
         ref={inputRef}
         onChange={handleChange}
+        class={styles.inputStyle}
       />
       <div
-        className="value-button"
-        id="increase"
+        className={styles.valueButton}
+        id={styles.increase}
         onClick={increaseValue}
         value="Increase Value"
       >

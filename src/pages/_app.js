@@ -1,4 +1,4 @@
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 import App from "next/app";
 
 import { wrapper } from "../redux/store";

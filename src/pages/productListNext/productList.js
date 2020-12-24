@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./productList.module.scss";
+import styles from "./productList.module.scss";
 //material ui components
 import MediaCard from "../../components/Card/Card";
 import Container from "@material-ui/core/Container";
@@ -60,7 +60,7 @@ function ProductList() {
     if (products) {
       return (products || []).map((product, index) => {
         return (
-          <Grid item xs={3} key={product.id} className="grid-custom">
+          <Grid item xs={3} key={product.id} className={styles.gridCustom}>
             <Paper
               key={product.id}
               onClick={() => router.push(`/productDetailsNext/${product.id}`)}
@@ -91,7 +91,7 @@ function ProductList() {
     }
   };
   return (
-    <Container maxWidth="lg" className="ProductListContainer">
+    <Container maxWidth="lg" className={styles.ProductListContainer}>
       <Header />
       {loading ? (
         <LoadingIndicator />

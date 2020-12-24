@@ -1,5 +1,5 @@
 import React from "react";
-import "./Card.module.scss";
+import styles from "./Card.module.scss";
 import { useStyles } from "./style";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -24,7 +24,7 @@ export default function MediaCard({ title, discription, img, alt, btn }) {
             gutterBottom
             variant="h5"
             component="h2"
-            className="limitCharacters"
+            className={styles.limitCharacters}
           >
             {title}
           </Typography>
@@ -32,7 +32,7 @@ export default function MediaCard({ title, discription, img, alt, btn }) {
             variant="body2"
             color="textSecondary"
             component="p"
-            className="limitCharacters"
+            className={styles.limitCharacters}
           >
             {discription}
           </Typography>

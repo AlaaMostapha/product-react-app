@@ -1,3 +1,47 @@
-a{
-  color:green;
+// a{
+//   color:green;
+// }
+// .MuiPaper-root {
+//     height: 100% !important;
+// }
+
+.MuiCardContent-root.makeStyles-content-7,
+.MuiCardContent-root.makeStyles-content-9 {
+    width: 16rem;
+}
+
+h5.MuiTypography-root.MuiTypography-h5 {
+    white-space  : nowrap;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+}
+
+.MuiCardMedia-root.makeStyles-cover-10 {
+    border-radius: 50%;
+    height       : 100px;
+    width        : 112px;
+}
+
+.MuiPaper-root.MuiCard-root.makeStyles-root-7.MuiPaper-elevation1.MuiPaper-rounded {
+    width: 100%;
+}
+
+.MuiCardContent-root.makeStyles-content-24 {
+    width: 16rem
+}
+
+.basicTable {
+
+    td,
+    th {
+        border    : 1px solid #dddddd;
+        text-align: left;
+        padding   : 8px;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin            : 0;
 }

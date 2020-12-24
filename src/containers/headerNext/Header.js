@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import "./Header.module.scss";
-import { useStyles } from "./style";
+import styles from "./header.module.scss";
 //material ui
 import {
   AppBar,
@@ -16,14 +15,12 @@ import FadeMenu from "../../components/Menu/Menu";
 //custom components
 import Cart from "../Cart/Cart";
 import CreateButton from "../../components/Btn/Btn";
-//route
-import history from "../../Route/history";
 //actions
 import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../redux/actions/cart";
-
+import { useRouter } from "next/router";
 function Header(props) {
-  const classes = useStyles();
+  const router = useRouter();
   //actions hooks
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartReducer.cart);
@@ -33,20 +30,16 @@ function Header(props) {
     dispatch(cartActions.deleteItemInCart(item));
   };
   const redirectToReviewPage = () => {
-    history.push("/ReviewOrder");
+    router.push(`/ReviewOrder/ReviewOrder`);
   };
   const profileDropDownItems = ["View/ Edit Profile", "Sign out"];
   return (
-    <div className={classes.root}>
+    <div className={styles.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <Link
-              href="/productListNext/productList"
-              style={{ color: "white", textDecoration: "none" }}
-              // onClick={() => history.push("/")}
-            >
-              Products
+          <Typography variant="h6" className={styles.title}>
+            <Link href="/productListNext/productList">
+              <a className={styles.headerTitle}>Products</a>
             </Link>
           </Typography>
 

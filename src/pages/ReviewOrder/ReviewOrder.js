@@ -1,4 +1,4 @@
-import "./ReviewOrder.module.scss";
+import styles from "./ReviewOrder.module.scss";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "@material-ui/core/Container";
@@ -42,7 +42,7 @@ function ReviewOrder(props) {
         <LoadingIndicator />
       ) : (
         <BasicTable
-          className="basicTable"
+          className={styles.basicTable}
           tableHeadings={tableHeadings}
           arrayItems={cart.map((product, index) => (
             <>
@@ -59,7 +59,7 @@ function ReviewOrder(props) {
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="reviewPageImg"
+                        className={styles.reviewPageImg}
                       />
                       {product.title}
                     </div>
@@ -83,7 +83,7 @@ function ReviewOrder(props) {
                   <TableCell>
                     <b>Total</b>
                   </TableCell>
-                  <TableCell colspan={3} style={{ textAlign: "center" }}>
+                  <TableCell colSpan={3} style={{ textAlign: "center" }}>
                     <b>{carttotal}</b>
                   </TableCell>
                 </TableRow>
