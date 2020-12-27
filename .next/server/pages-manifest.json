@@ -3,8 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/productDetailsNext/[id]": "pages/productDetailsNext/[id].js",
-  "/": "pages/index.js",
-  "/ReviewOrder/ReviewOrder": "pages/ReviewOrder/ReviewOrder.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/UserFormOrderNow/OrderNow": "pages/UserFormOrderNow/OrderNow.js"
+  "/": "pages/index.js"
 }
