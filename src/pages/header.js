@@ -20,14 +20,6 @@ function Header() {
           </Link>
         </li>
         <li>
-          <Link
-            href="/productDetailsNext/[id]"
-            as="/productDetails/product-Details"
-          >
-            <a>product details</a>
-          </Link>
-        </li>
-        <li>
           <Link href="/ReviewOrder/ReviewOrder">
             <a>review order</a>
           </Link>

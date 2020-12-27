@@ -19,6 +19,16 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/index.js"
     ],
+    "/ReviewOrder/ReviewOrder": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/ReviewOrder/ReviewOrder.js"
+    ],
+    "/UserFormOrderNow/OrderNow": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/UserFormOrderNow/OrderNow.js"
+    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -29,10 +39,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/productListNext/productList": [
+    "/next/dist/pages/_error": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/productListNext/productList.js"
+      "static/chunks/pages/next/dist/pages/_error.js"
+    ],
+    "/productDetailsNext/[id]": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/productDetailsNext/[id].js"
     ]
   },
   "ampFirstPages": []

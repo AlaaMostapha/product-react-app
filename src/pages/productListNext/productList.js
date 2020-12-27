@@ -9,7 +9,6 @@ import Paper from "@material-ui/core/Paper";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import Quantity from "../../components/quantity/quantity";
 import CreateButton from "../../components/Btn/Btn";
-import Header from "../../containers/headerNext/Header";
 //store
 import { useDispatch, useSelector } from "react-redux";
 import * as productsActions from "../../redux/actions/actions";
@@ -92,7 +91,6 @@ function ProductList() {
   };
   return (
     <Container maxWidth="lg" className={styles.ProductListContainer}>
-      <Header />
       {loading ? (
         <LoadingIndicator />
       ) : (
