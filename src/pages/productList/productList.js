@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./productList.scss";
+// import "./productList.scss";
 //material ui components
 import MediaCard from "../../components/Card/Card";
 import Container from "@material-ui/core/Container";
