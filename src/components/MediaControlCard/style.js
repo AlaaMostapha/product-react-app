@@ -12,6 +12,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   cover: {
     width: 151,
+    backgroundSize: "contain",
+    height: "100%",
   },
   controls: {
     display: "flex",

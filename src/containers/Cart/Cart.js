@@ -16,6 +16,7 @@ function Cart(props) {
         deleteBtn={
           <CreateButton
             color="secondary"
+            style={{ minWidth: "40px" }}
             text={<DeleteIcon />}
             onClick={onDelete}
           />

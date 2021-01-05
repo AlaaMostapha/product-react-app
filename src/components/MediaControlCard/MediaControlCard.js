@@ -35,7 +35,15 @@ export default function MediaControlCard({
           {title}
         </Typography>
         <CardActions>
-          <div style={{ textAlign: "center", display: "flex" }}>
+          <div
+            style={{
+              textAlign: "center",
+              display: "flex",
+              width: "100%",
+              // justifyContent: "spaceBetween",
+              alignItems: "center",
+            }}
+          >
             {quantityComp ? quantityComp : ""}
             {{ deleteBtn } ? deleteBtn : ""}
           </div>
