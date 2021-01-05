@@ -9,7 +9,7 @@ function Cart(props) {
   return (
     <React.Fragment>
       <MediaControlCard
-        className="carte"
+        // className="carte"
         title={title}
         img={img}
         quantityComp={<Quantity item={item} />}

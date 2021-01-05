@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
-export default function MediaCard({ title, discription, img, alt, btn }) {
+export default function MediaCard({ title, discription, img, alt, ...props }) {
   const classes = useStyles();
 
   return (
@@ -16,8 +16,8 @@ export default function MediaCard({ title, discription, img, alt, btn }) {
         <CardMedia
           className={classes.media}
           image={img}
-          alt={alt}
-          title="Contemplative Reptile"
+          // alt={alt}
+          title={title}
         />
         <CardContent>
           <Typography
@@ -38,7 +38,7 @@ export default function MediaCard({ title, discription, img, alt, btn }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      {btn ? btn : ""}
+      {props.btn ? props.btn : ""}
     </Card>
   );
 }

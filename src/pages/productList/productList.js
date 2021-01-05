@@ -23,7 +23,7 @@ function ProductList() {
   useEffect(() => {
     //when component mount get all products
     dispatch(productsActions.getProducts());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     //if there are items in cart
     if (cart) {
@@ -62,7 +62,7 @@ function ProductList() {
             <Paper
               key={product.id}
               onClick={() => history.push(`/products/${product.id}`, product)}
-              mb="2rem"
+              // mb="2rem"
             >
               <MediaCard
                 key={product.id}

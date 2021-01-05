@@ -69,8 +69,8 @@ function Header(props) {
             id="cart"
             items={(cart || []).slice(0, 3).map((item, index) => {
               return (
-                <>
-                  <MenuItem key={item.id}>
+                <span key={item.id}>
+                  <MenuItem>
                     <Cart
                       title={item.title}
                       img={item.image}
@@ -87,7 +87,7 @@ function Header(props) {
                       />
                     </MenuItem>
                   )}
-                </>
+                </span>
               );
             })}
           />

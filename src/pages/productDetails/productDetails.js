@@ -25,7 +25,7 @@ function ProductDetails(props) {
     } else {
       dispatch(productActions.showSingleProduct(singleProduct));
     }
-  }, [cart]);
+  }, [dispatch, cart, singleProduct]);
 
   const addItem = (singleProduct) => {
     //add item to cart
