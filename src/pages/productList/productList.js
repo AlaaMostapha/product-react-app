@@ -1,20 +1,17 @@
 import React, { useEffect } from "react";
 import "./productList.scss";
 //material ui components
-import MediaCard from "../../components/Card/Card";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+//containers
+import ProductCard from "../../containers/productCard/productCard";
 //custom components
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
-import Quantity from "../../components/quantity/quantity";
-import CreateButton from "../../components/Btn/Btn";
 //store
 import { useDispatch, useSelector } from "react-redux";
 import * as productsActions from "../../redux/actions/actions";
 import * as cartActions from "../../redux/actions/cart";
-//history
-import history from "../../Route/history";
+
 function ProductList() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartReducer.cart);
@@ -54,40 +51,18 @@ function ProductList() {
       }
     }
   };
-  const createList = React.memo(() => {
+  const createList = () => {
     if (products) {
+      console.log(products);
       return (products || []).map((product, index) => {
         return (
           <Grid item xs={3} key={product.id} className="grid-custom">
-            <Paper
-              key={product.id}
-              onClick={() => history.push(`/products/${product.id}`, product)}
-              // mb="2rem"
-            >
-              <MediaCard
-                key={product.id}
-                title={product.title}
-                discription={product.description}
-                img={product.image}
-                alt={product.title}
-              />
-            </Paper>
-            <div className="text-center" style={{ margin: "5px" }}>
-              {product.quantity > 0 ? (
-                <Quantity item={product} />
-              ) : (
-                <CreateButton
-                  color="primary"
-                  text="Add to cart"
-                  onClick={() => addItem(product)}
-                />
-              )}
-            </div>
+            <ProductCard product={product} addItem={addItem} />
           </Grid>
         );
       });
     }
-  });
+  };
   return (
     <Container maxWidth="lg" className="ProductListContainer">
       {loading ? (

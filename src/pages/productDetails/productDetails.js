@@ -33,6 +33,7 @@ function ProductDetails(props) {
   };
   return (
     <Container maxWidth="lg">
+      {console.log("details render")}
       {singleProduct ? (
         <div style={{ display: "flex", textAlign: "left" }}>
           <img
@@ -66,4 +67,4 @@ function ProductDetails(props) {
   );
 }
 
-export default ProductDetails;
+export default React.memo(ProductDetails);
