@@ -54,7 +54,7 @@ function ProductList() {
       }
     }
   };
-  const createList = () => {
+  const createList = React.memo(() => {
     if (products) {
       return (products || []).map((product, index) => {
         return (
@@ -87,7 +87,7 @@ function ProductList() {
         );
       });
     }
-  };
+  });
   return (
     <Container maxWidth="lg" className="ProductListContainer">
       {loading ? (
